@@ -351,3 +351,48 @@ body {
   to { opacity: 1; transform: translate(0, -50%); }
 }
 
+/* --- MOBILE RESPONSIVE TWEAKS --- */
+@media (max-width: 768px) {
+  /* Collapse sidebar completely by default on mobile */
+  .sidebar {
+    position: fixed;
+    top: 45px; /* Below header */
+    left: 0;
+    height: calc(100vh - 45px);
+    z-index: 100;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.8);
+  }
+
+  .sidebar.closed {
+    transform: translateX(-100%);
+    width: 220px; /* Keep width defined for smooth slide-in */
+    padding: 20px 0;
+    border-right: 1px solid var(--border-color);
+  }
+
+  /* Adjust header text sizing for small screens */
+  .main-header {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .status-bar .stat:nth-child(2) {
+    display: none; /* Hide location on tiny screens to save space */
+  }
+
+  /* Make content pane take full width */
+  .content-pane {
+    padding: 12px;
+  }
+
+  /* CLI Widget mobile adjustments */
+  .cli-widget-container {
+    width: calc(100% - 20px);
+    right: 10px;
+    left: 10px;
+  }
+  
+  .cli-widget-container.open {
+    height: 300px;
+  }
+}

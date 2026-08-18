@@ -44,10 +44,10 @@ function App() {
           <div className="sidebar-section">
             <h3 className="section-title">NAVIGATION</h3>
             <ul>
-              <li onClick={() => setActivePane('DASHBOARD')} className={activePane === 'DASHBOARD' ? 'active' : ''}>[H] Topology</li>
-              <li onClick={() => setActivePane('PROJECTS')} className={activePane === 'PROJECTS' ? 'active' : ''}>[P] Projects</li>
-              <li onClick={() => setActivePane('RESUME')} className={activePane === 'RESUME' ? 'active' : ''}>[R] Resume / CV</li>
-              <li onClick={() => setActivePane('GATEWAY')} className={activePane === 'GATEWAY' ? 'active' : ''}>[G] Gateway Hub</li>
+              <li onClick={() => { setActivePane('DASHBOARD'); if(window.innerWidth <= 768) setIsSidebarOpen(false); }} className={activePane === 'DASHBOARD' ? 'active' : ''}>[T] Topology</li>
+              <li onClick={() => { setActivePane('PROJECTS'); if(window.innerWidth <= 768) setIsSidebarOpen(false); }} className={activePane === 'PROJECTS' ? 'active' : ''}>[P] Projects</li>
+              <li onClick={() => { setActivePane('RESUME'); if(window.innerWidth <= 768) setIsSidebarOpen(false); }} className={activePane === 'RESUME' ? 'active' : ''}>[R] Resume / CV</li>
+              <li onClick={() => { setActivePane('GATEWAY'); if(window.innerWidth <= 768) setIsSidebarOpen(false); }} className={activePane === 'GATEWAY' ? 'active' : ''}>[G] Gateway Hub</li>
             </ul>
           </div>
           <div className="sidebar-section footer">

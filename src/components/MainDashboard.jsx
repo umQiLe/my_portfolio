@@ -57,6 +57,26 @@ const MainDashboard = ({ view }) => {
     setActiveNode(null); 
   };
 
+  // Touch event wrappers mapped to mouse event logic
+  const handleTouchStart = (e, nodeId) => {
+    const touch = e.touches[0];
+    handleMouseDown({ 
+      clientX: touch.clientX, 
+      clientY: touch.clientY, 
+      stopPropagation: () => e.stopPropagation() 
+    }, nodeId);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!e.touches[0]) return;
+    const touch = e.touches[0];
+    handleMouseMove({
+      clientX: touch.clientX,
+      clientY: touch.clientY,
+      currentTarget: containerRef.current
+    });
+  };
+
   if (view !== 'DASHBOARD') return <div className="placeholder-pane">ACCESSING_MODULE: {view}...</div>;
 
   const coreNode = nodes.find(n => n.id === 'core');
@@ -72,7 +92,9 @@ const MainDashboard = ({ view }) => {
       className="topology-container" 
       onMouseMove={handleMouseMove} 
       onMouseUp={() => setDraggingNode(null)} 
-      onMouseLeave={() => setDraggingNode(null)} 
+      onMouseLeave={() => setDraggingNode(null)}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={() => setDraggingNode(null)}
       onClick={handleBgClick}
     >
       <div className="topology-instruction">DRAG TO MOVE | CLICK TO FOCUS & EXPAND</div>
@@ -103,6 +125,7 @@ const MainDashboard = ({ view }) => {
             onMouseEnter={() => !activeNode && setHoveredData(node)} 
             onMouseLeave={() => setHoveredData(null)} 
             onMouseDown={(e) => handleMouseDown(e, node.id)} 
+            onTouchStart={(e) => handleTouchStart(e, node.id)}
             onClick={(e) => handleNodeClick(e, node.id)}
           >
             <div className="node-dot"></div>
