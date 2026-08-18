@@ -91,7 +91,7 @@ const ResumeView = () => {
               <span>Johor Bahru, Malaysia</span>
             </div>
             <p className="resume-summary">
-              Final-year Computer Science student at Universiti Malaya. Specializing in routing protocols, infrastructure as code, and building resilient network architectures.
+              Fresh Graduate | Computer Science student at Universiti Malaya. Specializing in routing protocols, infrastructure as code, and building resilient network architectures.
             </p>
           </div>
         </header>
@@ -134,7 +134,7 @@ const ResumeView = () => {
               <h3>EDUCATION</h3>
               <div className="resume-item">
                 <h4>Universiti Malaya (UM)</h4>
-                <p className="item-desc">Bachelor of CS: Computer System & Network (CGPA: 3.72)</p>
+                <p className="item-desc">Bachelor of CS: Computer System & Network (CGPA: 3.75)</p>
               </div>
               <div className="resume-item">
                 <h4>National University of Singapore</h4>
