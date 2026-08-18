@@ -1,0 +1,72 @@
+:root {
+  --cli-bg: #161b22;
+  --cli-header: #21262d;
+  --cli-border: #30363d;
+  --cli-prompt: #58a6ff;
+  --cli-text: #c9d1d9;
+  --cli-output: #8b949e;
+  --font-mono: 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
+}
+
+.cli-widget-container {
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  width: 400px;
+  max-width: calc(100% - 40px); /* Mobile safety */
+  background-color: rgba(22, 27, 34, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--cli-border);
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-mono);
+  transition: transform 0.3s ease-in-out, height 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000; /* Stays above the dashboard */
+}
+
+/* Header / Toggle Bar */
+.cli-header {
+  background-color: rgba(33, 38, 45, 0.9);
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  border-bottom: 1px solid var(--cli-border);
+  user-select: none;
+}
+
+.terminal-title { font-size: 12px; color: var(--cli-text); font-weight: bold; }
+.toggle-icon { color: var(--cli-output); font-size: 12px;}
+
+/* Open vs Closed State */
+.cli-widget-container.closed { height: 33px; /* Just the header height */ }
+.cli-widget-container.open { height: 350px; }
+
+/* CLI Terminal Body */
+.cli-body {
+  padding: 12px;
+  flex-grow: 1;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.history-item { margin-bottom: 8px; }
+.command-line { display: flex; gap: 6px; }
+.prompt { color: var(--cli-prompt); font-weight: bold; }
+.cmd-text { color: #f0f6fc; }
+.output-text { margin-top: 2px; color: var(--cli-output); white-space: pre-wrap;}
+
+.input-form { display: flex; gap: 6px; margin-top: 4px; }
+.input-form input {
+  background: transparent;
+  border: none;
+  color: #f0f6fc;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  flex-grow: 1;
+}

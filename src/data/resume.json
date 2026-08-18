@@ -1,0 +1,82 @@
+{
+  "core": {
+    "id": "core",
+    "label": "SYS_ADMIN",
+    "summary": "STATUS: ONLINE\nROLE: Computer Science & Network Engineer",
+    "children": [
+      { "id": "c1", "label": "UM", "desc": "Universiti Malaya (UM)\nBachelor of Computer Science: Computer System and Network\nCGPA: 3.75" },
+      { "id": "c2", "label": "NUS", "desc": "National University of Singapore (NUS)\nBachelor of Computing in Computer Science\nLong-term Mobility Program" },
+      { "id": "c3", "label": "CONTACT", "desc": "Email: umqile@gmail.com\nMobile: N/A\nLocation: Johor Bahru, Malaysia" }
+    ]
+  },
+  "experience": {
+    "id": "exp",
+    "label": "EXPERIENCE",
+    "summary": "iFAST // Huawei // UM",
+    "children": [
+      { "id": "e1", "label": "IFAST_GLOBAL", "desc": "IT Engineer Intern | iFAST Global Hub AI (Feb-Aug 2026)\n• Deployed cross-platform unauthorized software detection using bash/SSP.\n• Managed enterprise-wide antivirus, firewall framework, and DLP policies.\n• Maintained global infrastructure uptime via Active Directory and VPN gateways." },
+      { "id": "e2", "label": "HUAWEI", "desc": "Network Presales Intern | Huawei Malaysia (Jul-Oct 2025)\n• Supported PoC & enterprise network projects: topology design, configuration, lab stimulation.\n• Developed a network provisioning tool using FastAPI and Ollama." },
+      { "id": "e3", "label": "UM_LAB_TA", "desc": "Lab Teaching Assistant | Universiti Malaya (Mar-Jul 2024/2025)\n• Conducted Network Technology Fundamental labs for 30 students.\n• Guided tasks involving IPv4/IPv6, STP, VLAN, ROAS, DHCP, Port Security." }
+    ]
+  },
+  "projects": {
+    "id": "projects",
+    "label": "PROJECTS",
+    "summary": "AI Networks // Automation // Audio",
+    "children": [
+      { "id": "p1", "label": "UPTIME_BOT", "desc": "Automated Uptime Notification & Force Reboot Prompt (iFAST)\nDeveloped Bash and VBScript automation to monitor endpoint uptime and enforce security patches." },
+      { "id": "p2", "label": "AUDIT_TOOL", "desc": "Cross-Platform Automated Software Auditing (iFAST)\nTarget-optimized detection routines dynamically classifying software assets for Security Ops." },
+      { "id": "p3", "label": "UMPTT_AUDIO", "desc": "Low-Latency Audio Streaming (UM)\nHybrid WebSocket and WebRTC approach achieving <120ms latency for real-time class discussion." },
+      { "id": "p4", "label": "NETMASTER", "desc": "AI-implemented Network Management System (Huawei)\nDashboard with live monitoring, interface management, and SSH CLI access." },
+      { "id": "p5", "label": "BSD_RUST", "desc": "Berkeley Software Distribution using Rust (NUS)\nStudied Rust for memory safety to replace traditional C language in BSD environments." },
+      { "id": "p6", "label": "NET_TECH", "desc": "Advanced Network Technology (UM)\nDesigned topologies applying ARP, VPN, RIP, STP, OSPF, BGP, IPSec." },
+      { "id": "p7", "label": "VC_ML", "desc": "Venture Capital Data Analysis System (UM)\nMachine learning analytics using 1000+ datasets for investment decisions." }
+    ]
+  },
+  "awards": {
+    "id": "awards",
+    "label": "AWARDS",
+    "summary": "Hackathons // CTF",
+    "children": [
+      { "id": "a1", "label": "TARUMT_HACK", "desc": "First Place | TARUMT International Hackathon\nProject: Dual Sec - Multi-layer data protection for applications and databases." },
+      { "id": "a2", "label": "IIUM_HACK", "desc": "Second Runner Up | Innovation Hackathon IIUM\nProject: EduHax - AI educational application aligning with SDG 4." },
+      { "id": "a3", "label": "CYBER_CTF", "desc": "Second Runner Up | UM CyberHunt CTF\nTackled 95% of challenges in web exploitation, cryptography, RE, and forensics." },
+      { "id": "a4", "label": "VIC_COMP", "desc": "Participant | Virtual Innovation Competition\nProject: Smart Home Door Lock using Arduino, Bluetooth, and C++." }
+    ]
+  },
+  "certifications": {
+    "id": "certs",
+    "label": "CERTS",
+    "summary": "Huawei // Cisco // Cloud",
+    "children": [
+      { "id": "cert1", "label": "HUAWEI", "desc": "• Huawei Certified ICT Associate (HCIA) Datacom\n• Huawei Certified Specialist - Associate (HCSA) Presales IP Network" },
+      { "id": "cert2", "label": "CISCO_CCNA", "desc": "• CCNA: Enterprise Networking, Security and Automation\n• CCNA: Switching, Routing and Wireless Essentials\n• NetAcad: CyberOps Associate" },
+      { "id": "cert3", "label": "CLOUD_AI", "desc": "• Alibaba Cloud Certified Associate: Cloud Computing\n• IBM SkillsBuild: AI Fundamentals, Data Science, Python" },
+      { "id": "cert4", "label": "MEDICAL", "desc": "• Singapore Red Cross Society CPR + AED Provider\n• Singapore Red Cross Society Standard First Aid Provider" }
+    ]
+  },
+  "skills": {
+    "id": "skills",
+    "label": "SKILLS",
+    "summary": "Network // Code // Cloud // AI",
+    "children": [
+      { "id": "sk1", "label": "NETWORK", "desc": "Routing/Switching, SDN, WebSocket, Netmiko, Netconf, Mininet, TCP/IP, SNMP." },
+      { "id": "sk2", "label": "CLOUD_DB", "desc": "AWS, Google Cloud Services, Distributed Systems (HDFS), Oracle, MySQL, Firebase." },
+      { "id": "sk3", "label": "SEC_SYS", "desc": "Linux, Kali, OPNSense, ACL, IPS/IDS, Cryptography, Buffer Overflow, Access Control." },
+      { "id": "sk4", "label": "DEV_AI", "desc": "Python, Rust, Java, C/C++, Bash, JS. AI: Llama, Ollama, PyTorch, Hugging Face, ML (SVM, KNN)." },
+      { "id": "sk5", "label": "LANG_SOFT", "desc": "Native Chinese/Cantonese, Fluent English/Malay.\nLeadership, Event Management, Public Speaking." }
+    ]
+  },
+  "activities": {
+    "id": "activities",
+    "label": "ACTIVITY",
+    "summary": "PEKOM // AIESEC // GDG",
+    "children": [
+      { "id": "act1", "label": "PEKOM", "desc": "Vice Director of Virtual Machine & CTF101 Workshop. Formed a cybersecurity community leading to UMCS." },
+      { "id": "act2", "label": "UMCS_2025", "desc": "Vice Secretary of Universiti Malaya Cybersecurity Summit. Reached 250 participants; endorsed by NACSA." },
+      { "id": "act3", "label": "AIESEC", "desc": "Director of University Relations & Marketing for Youth Now. Raised awareness on SDGs." },
+      { "id": "act4", "label": "COMMUNITY", "desc": "Member: GDG UM, Alibaba Cloud Dev Community, NUS Greyhats, Re:Hack." },
+      { "id": "act5", "label": "VOLUNTEER", "desc": "HOD in Shefu (UM Chinese Society) for charity. First aid services in St.John Ambulance & Red Cross." }
+    ]
+  }
+}

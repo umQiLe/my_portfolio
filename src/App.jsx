@@ -1,133 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
+import MainDashboard from './components/MainDashboard';
+import ResumeView from './components/ResumeView';
+import ProjectsView from './components/ProjectsView';
+import GatewayView from './components/GatewayView';
+import CLIWidget from './components/CLIWidget';
+import MascotWidget from './components/MascotWidget';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activePane, setActivePane] = useState('DASHBOARD');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMascotActive, setIsMascotActive] = useState(false);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="coder-ui-container">
+      {/* Video Background */}
+      <video autoPlay loop muted playsInline className="video-background">
+        <source src="/bg.mp4" type="video/mp4" />
+      </video>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      {/* Header / Top Nav */}
+      <header className="main-header">
+        <div className="branding">
+          <button 
+            className="sidebar-toggle" 
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            [ {isSidebarOpen ? 'HIDE' : 'MENU'} ]
+          </button>
+          <span className="user-prompt">guest@qilechang:~</span>
+          <span className="dot active"></span>
+          <span className="title">Portfolio Dashboard</span>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+        <div className="status-bar">
+          <span className="stat">STATUS: <span className="highlight green">ONLINE</span></span>
+          <span className="stat">LOC: JOHOR, MY</span>
         </div>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <div className="main-layout">
+        {/* Collapsible Sidebar */}
+        <aside className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+          <div className="sidebar-section">
+            <h3 className="section-title">NAVIGATION</h3>
+            <ul>
+              <li onClick={() => setActivePane('DASHBOARD')} className={activePane === 'DASHBOARD' ? 'active' : ''}>[H] Topology</li>
+              <li onClick={() => setActivePane('PROJECTS')} className={activePane === 'PROJECTS' ? 'active' : ''}>[P] Projects</li>
+              <li onClick={() => setActivePane('RESUME')} className={activePane === 'RESUME' ? 'active' : ''}>[R] Resume / CV</li>
+              <li onClick={() => setActivePane('GATEWAY')} className={activePane === 'GATEWAY' ? 'active' : ''}>[G] Gateway Hub</li>
+            </ul>
+          </div>
+          <div className="sidebar-section footer">
+            <p className="sub-text">Build v1.1 // React</p>
+          </div>
+        </aside>
+
+        {/* Main Content Pane */}
+        <main className="content-pane">
+          {activePane === 'DASHBOARD' && <MainDashboard view={activePane} />}
+          {activePane === 'RESUME' && <ResumeView />}
+          {activePane === 'PROJECTS' && <ProjectsView />}
+          {activePane === 'GATEWAY' && <GatewayView />}
+          {activePane !== 'DASHBOARD' && activePane !== 'PROJECTS' && activePane !== 'RESUME' && activePane !== 'GATEWAY' && (
+            <div className="placeholder-pane">ACCESSING_MODULE: {activePane}...</div>
+          )}
+        </main>
+      </div>
+
+      {/* 3. Pass the trigger function into the CLI Widget */}
+      <CLIWidget onTriggerMascot={(action) => setIsMascotActive(action === 'open')} />
+
+      {/* 4. Render the Floating Mascot */}
+      <MascotWidget 
+        isVisible={isMascotActive} 
+        onClose={() => setIsMascotActive(false)} 
+      />
+      
+    </div>
+  );
 }
 
-export default App
-
-const commands = {
-  about: "I am a Computer Science student at UM with a passion for network engineering.",
-  help: "Available commands: about, skills, contact, clear",
-  // Add more command mappings here
-};
-
-// In your component render:
-// 1. Map through the 'history' state to show past commands and outputs.
-// 2. Render an input field that listens for 'Enter'.
-// 3. When 'Enter' is pressed, update 'history' with command + result.
+export default App;

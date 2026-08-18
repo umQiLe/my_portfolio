@@ -1,0 +1,30 @@
+[
+  {
+    "keywords": ["hello", "hi", "hey", "greetings"],
+    "response": "Hello! You have reached Qi Le's automated assistant. How can I help you today?"
+  },
+  {
+    "keywords": ["hire", "hiring", "job", "work", "opportunity", "role", "graduate"],
+    "response": "Qi Le is graduating in August 2026 and is actively open to Network Engineering and IT Infrastructure roles starting after that date."
+  },
+  {
+    "keywords": ["project", "projects", "umptt", "build"],
+    "response": "Qi Le specializes in network automation and real-time communication. His flagship project is UMPTT, a low-latency (<120ms) voice app using WebSocket & WebRTC. Check the [P] Projects tab for details."
+  },
+  {
+    "keywords": ["experience", "huawei", "intern", "ifast", "background"],
+    "response": "He served as a Network Presales Intern at Huawei Malaysia in 2025 (Enterprise network design/BGP) and is joining iFAST Global Hub AI as an IT Engineer Intern in 2026."
+  },
+  {
+    "keywords": ["skills", "stack", "tech", "technologies"],
+    "response": "Core stack: BGP, OSPF, Ansible, Python, AWS, Linux, and SDN. He is also proficient in web tech like React and Node.js for automation dashboards."
+  },
+  {
+    "keywords": ["contact", "email", "reach", "message", "call"],
+    "response": "You can reach Qi Le directly at umqile@gmail.com or via LinkedIn (available in the Gateway Hub)."
+  },
+  {
+    "keywords": ["who", "are", "you", "bot"],
+    "response": "I am a local automated script written by Qi Le to handle incoming queries while he is away from the keyboard."
+  }
+]
