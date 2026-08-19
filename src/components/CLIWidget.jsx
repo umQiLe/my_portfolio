@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import resumeData from '../data/resume.json';
 import qaDatabase from '../data/qa.json';
 import './CLIWidget.css';
@@ -15,9 +15,6 @@ const CLIWidget = ({ onTriggerMascot }) => {
   const [chatMode, setChatMode] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   
-  // Create a unique session ID for this user's tab
-  const sessionId = useRef(Math.random().toString(36).substring(2, 15));
-
   const [cmdHistory, setCmdHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
 
@@ -222,6 +219,9 @@ const CLIWidget = ({ onTriggerMascot }) => {
         }
         break;
 
+      case 'Can you be my boyfriend?':
+        output = 'Yes, I do.';
+
       case 'help':
         output = `NAME
     portfolio-cli - interactive command line interface
@@ -248,7 +248,7 @@ SHORTCUTS
         break;
 
       case 'ls': output = availableFiles.join('   '); break;
-      case 'cat':
+      case 'cat': {
         const file = args[1];
         if (!file) output = 'cat: missing file operand\nTry \'ls\' to see available files.';
         else if (file === 'about.txt') output = formatJsonData(resumeData.core);
@@ -261,6 +261,7 @@ SHORTCUTS
         else if (file === 'resume.pdf') output = 'Error: Cannot print binary PDF to terminal.';
         else output = `cat: ${file}: No such file or directory`;
         break;
+      }
 
       case 'about': output = formatJsonData(resumeData.core); break;
       case 'exp': output = formatJsonData(resumeData.experience); break;

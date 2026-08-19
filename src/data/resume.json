@@ -41,7 +41,7 @@
       { "id": "a1", "label": "TARUMT_HACK", "desc": "First Place | TARUMT International Hackathon\nProject: Dual Sec - Multi-layer data protection for applications and databases." },
       { "id": "a2", "label": "IIUM_HACK", "desc": "Second Runner Up | Innovation Hackathon IIUM\nProject: EduHax - AI educational application aligning with SDG 4." },
       { "id": "a3", "label": "CYBER_CTF", "desc": "Second Runner Up | UM CyberHunt CTF\nTackled 95% of challenges in web exploitation, cryptography, RE, and forensics." },
-      { "id": "a4", "label": "VIC_COMP", "desc": "Participant | Virtual Innovation Competition\nProject: Smart Home Door Lock using Arduino, Bluetooth, and C++." }
+      { "id": "a4", "label": "VIC_COMP", "desc": "Second Runner Up | Virtual Innovation Competition\nProject: Smart Home Door Lock using Arduino, Bluetooth, and C++." }
     ]
   },
   "certifications": {

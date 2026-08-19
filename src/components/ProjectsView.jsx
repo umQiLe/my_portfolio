@@ -1,4 +1,3 @@
-import React from 'react';
 import './ExtraViews.css';
 
 const ProjectsView = () => {
@@ -22,15 +21,6 @@ const ProjectsView = () => {
       mediaSrc: 'https://ehelperteam.com/wp-content/uploads/2019/09/Broken-images.png', 
       links: { github: 'https://github.com/umQiLe/' }
     },
-    // {
-    //   id: 'crypto',
-    //   title: 'BNM S10.20 Policy Analysis',
-    //   tech: ['Cybersecurity', 'Cryptography', 'Compliance'],
-    //   description: 'Research and video presentation analyzing Malaysian national cryptographic standards, focusing specifically on Bank Negara Malaysia (BNM) RMiT S10.20 policy implementations for financial institutions.',
-    //   mediaType: 'video', 
-    //   mediaSrc: 'https://www.w3schools.com/html/mov_bbb.mp4', // Placeholder video
-    //   links: { slide: '#', video: '#' }
-    // }
   ];
 
   return (

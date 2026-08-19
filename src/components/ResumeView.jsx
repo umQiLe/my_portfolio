@@ -1,6 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import resumeData from '../data/resume.json';
 import './ResumeView.css';
+
+const mask = [
+  "                        ",
+  "        xxxxxxxx        ",
+  "       xxxxxxxxxx       ",
+  "       xxxxxxxxxx       ",
+  "       xxxxxxxxxx       ",
+  "        xxxxxxxx        ",
+  "         xxxxxx         ",
+  "       xxxxxxxxxx       ",
+  "     xxxxxxxxxxxxxx     ",
+  "    xxxxxxxxxxxxxxxx    ",
+  "   xxxxxxxxxxxxxxxxxx   ",
+  "  xxxxxxxxxxxxxxxxxxxx  ",
+  " xxxxxxxxxxxxxxxxxxxxxx ",
+  "xxxxxxxxxxxxxxxxxxxxxxxx",
+];
 
 const ResumeView = () => {
   const PROFILE_IMAGE_URL = "https://media.licdn.com/dms/image/v2/D5603AQEPSK0J-MHYYA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1719029030375?e=1788393600&v=beta&t=5eTK1YguXuldlUFBVlEKeppKdumpej1JHa7uAL55Ao4"; // Use your actual URL
@@ -8,22 +25,6 @@ const ResumeView = () => {
   const [matrixText, setMatrixText] = useState('');
   const [phase, setPhase] = useState('decoding');
 
-  const mask = [
-    "                        ",
-    "        xxxxxxxx        ",
-    "       xxxxxxxxxx       ",
-    "       xxxxxxxxxx       ",
-    "       xxxxxxxxxx       ",
-    "        xxxxxxxx        ",
-    "         xxxxxx         ",
-    "       xxxxxxxxxx       ",
-    "     xxxxxxxxxxxxxx     ",
-    "    xxxxxxxxxxxxxxxx    ",
-    "   xxxxxxxxxxxxxxxxxx   ",
-    "  xxxxxxxxxxxxxxxxxxxx  ",
-    " xxxxxxxxxxxxxxxxxxxxxx ",
-    "xxxxxxxxxxxxxxxxxxxxxxxx",
-  ];
   // The "Digits forming the picture" animation logic
   useEffect(() => {
     let interval;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import MainDashboard from './components/MainDashboard';
 import ResumeView from './components/ResumeView';
@@ -67,10 +67,8 @@ function App() {
         </main>
       </div>
 
-      {/* 3. Pass the trigger function into the CLI Widget */}
       <CLIWidget onTriggerMascot={(action) => setIsMascotActive(action === 'open')} />
 
-      {/* 4. Render the Floating Mascot */}
       <MascotWidget 
         isVisible={isMascotActive} 
         onClose={() => setIsMascotActive(false)} 

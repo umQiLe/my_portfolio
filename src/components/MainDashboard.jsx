@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import resumeData from '../data/resume.json';
 
-const MainDashboard = ({ view }) => {
+const MainDashboard = ({ view = 'DASHBOARD' }) => {
   const [nodes, setNodes] = useState([
     { ...resumeData.core, x: 50, y: 50, isCore: true },   // Center
     { ...resumeData.experience, x: 25, y: 30 }, // Top-Left
@@ -204,8 +204,6 @@ const MainDashboard = ({ view }) => {
   );
 };
 
-MainDashboard.defaultProps = {
-  view: 'DASHBOARD'
-};
+
 
 export default MainDashboard;
