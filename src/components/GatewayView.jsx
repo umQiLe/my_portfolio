@@ -17,7 +17,7 @@ const GatewayView = () => {
           
           <div className="gateway-links">
             {links.map((link, i) => (
-              <a key={i} href={link.url} target="_blank" rel="noreferrer" className="gateway-btn">
+              <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="gateway-btn">
                 <div className="btn-icon">[{link.icon}]</div>
                 <div className="btn-text">
                   <h4>{link.name}</h4>

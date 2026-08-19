@@ -51,9 +51,9 @@ const ProjectsView = () => {
               <p className="media-desc">{proj.description}</p>
               
               <div className="media-actions">
-                {proj.links.github && <a href={proj.links.github} className="action-link" target="_blank" rel="noreferrer">[ GITHUB ]</a>}
-                {proj.links.slide && <a href={proj.links.slide} className="action-link" target="_blank" rel="noreferrer">[ SLIDES ]</a>}
-                {proj.links.video && <a href={proj.links.video} className="action-link" target="_blank" rel="noreferrer">[ VIDEO ]</a>}
+                {proj.links.github && <a href={proj.links.github} className="action-link" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a>}
+                {proj.links.slide && <a href={proj.links.slide} className="action-link" target="_blank" rel="noopener noreferrer">[ SLIDES ]</a>}
+                {proj.links.video && <a href={proj.links.video} className="action-link" target="_blank" rel="noopener noreferrer">[ VIDEO ]</a>}
               </div>
             </div>
           </div>

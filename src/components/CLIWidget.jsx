@@ -219,9 +219,6 @@ const CLIWidget = ({ onTriggerMascot }) => {
         }
         break;
 
-      case 'Can you be my boyfriend?':
-        output = 'Yes, I do.';
-
       case 'help':
         output = `NAME
     portfolio-cli - interactive command line interface
