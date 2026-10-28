@@ -12,7 +12,7 @@ function OverviewView({ onNavigate }) {
 
       <div className="overview-board">
         <aside className="overview-profile" aria-label="Profile">
-          <div className="overview-profile-label"><span className="overview-status-dot" /> HELLO, WORLD</div>
+          <div className="overview-profile-label"><span className="overview-status-dot" /> A QUICK INTRO</div>
           <div className="overview-portrait-stage">
             <div className="overview-orbit" aria-hidden="true" />
             <span className="overview-portrait-name" aria-hidden="true">{overview.portraitBackdrop}</span>
