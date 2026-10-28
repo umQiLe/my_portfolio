@@ -1,30 +1,9 @@
 [
-  {
-    "keywords": ["hello", "hi", "hey", "greetings"],
-    "response": "Hello! You have reached Qi Le's automated assistant. How can I help you today?"
-  },
-  {
-    "keywords": ["hire", "hiring", "job", "work", "opportunity", "role", "graduate"],
-    "response": "Qi Le is graduating in August 2026 and is actively open to Network Engineering and IT Infrastructure roles starting after that date."
-  },
-  {
-    "keywords": ["project", "projects", "umptt", "build"],
-    "response": "Qi Le specializes in network automation and real-time communication. His flagship project is UMPTT, a low-latency (<120ms) voice app using WebSocket & WebRTC. Check the [P] Projects tab for details."
-  },
-  {
-    "keywords": ["experience", "huawei", "intern", "ifast", "background"],
-    "response": "His experience includes Network Presales at Huawei MY in 2025 (Enterprise network design/BGP) and IT Engineer at iFAST Global Hub AI in 2026."
-  },
-  {
-    "keywords": ["skills", "stack", "tech", "technologies"],
-    "response": "Core stack: BGP, OSPF, Ansible, Python, AWS, Linux, and SDN. He is also proficient in web tech like React and Node.js for automation dashboards."
-  },
-  {
-    "keywords": ["contact", "email", "reach", "message", "call"],
-    "response": "You can reach Qi Le directly at umqile@gmail.com or via LinkedIn (available in the Gateway Hub)."
-  },
-  {
-    "keywords": ["who", "are", "you", "bot"],
-    "response": "I am a local automated script written by Qi Le to handle incoming queries while he is away from the keyboard."
-  }
+  { "keywords": ["hello", "hi", "hey", "greetings"], "response": "Hi! I’m Qi Le’s local profile FAQ. Ask about his role, experience, projects or skills." },
+  { "keywords": ["hire", "hiring", "job", "work", "opportunity", "role", "current", "antlabs"], "response": "Qi Le works as an IT & Solutions Delivery Engineer at ANTlabs, under the Corporate department. His focus is networking, cloud and AI, and he hopes to contribute more under Bowen’s guidance." },
+  { "keywords": ["project", "projects", "umptt", "build"], "response": "Projects include UMPTT low-latency audio, NetMaster network management, software auditing and uptime automation. Use projects for the full list, or open topology to explore the connections." },
+  { "keywords": ["experience", "huawei", "ifast", "background"], "response": "Qi Le is currently at ANTlabs. Previously he worked as an IT Engineer at iFAST Global Hub AI and in Network Presales at Huawei MY. Use exp for the details." },
+  { "keywords": ["skills", "stack", "tech", "technologies"], "response": "His focus is networking, cloud and AI. His saved profile includes routing and switching, AWS, Linux, Python, Rust, Ollama and PyTorch. Use skills to see the complete profile." },
+  { "keywords": ["contact", "email", "reach", "message", "call"], "response": "Reach Qi Le at umqile@gmail.com. Use open gateway for his other links." },
+  { "keywords": ["who", "you", "bot", "assistant"], "response": "I’m a local profile FAQ using saved portfolio content. I don’t call a language model or connect to a remote server." }
 ]

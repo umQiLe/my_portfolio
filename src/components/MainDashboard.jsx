@@ -1,194 +1,120 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import resume from '../data/resume.json';
-import overview from '../data/overview.json';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { Background, Controls, Handle, MiniMap, Position, ReactFlow, ReactFlowProvider, useNodesState, useReactFlow } from '@xyflow/react';
+import '@xyflow/react/dist/style.css';
+import { buildNetwork, details, getDetail, getTopic, profile, relatedTopics, searchProfile, topics } from '../data/profile';
 import './MainDashboard.css';
 
-const categories = [
-  {
-    id: 'qile-profile', title: 'Profile', description: 'The person behind the connections.',
-    items: [
-      { id: 'current-role', label: overview.company, desc: `${overview.role}\n${overview.department}\n${overview.outlook}` },
-      { id: 'contact', label: 'Contact', desc: `Email: ${overview.email}` },
-    ],
-  },
-  { id: 'qile-expertise', title: 'Expertise', description: 'Networking, cloud, AI and the tools I work with.', items: resume.skills.children },
-  {
-    id: 'qile-experience', title: 'Experience', description: 'My current chapter and previous roles.',
-    items: [{ id: 'antlabs', label: overview.company, desc: `${overview.role}\n${overview.department}` }, ...resume.experience.children],
-  },
-  { id: 'qile-projects', title: 'Projects', description: 'Automation, network systems and real-time communication.', items: resume.projects.children },
-  { id: 'qile-education', title: 'Education', description: 'Where I developed my foundations in computer science.', items: resume.core.children.filter((item) => item.id !== 'c3') },
-  { id: 'qile-credentials', title: 'Credentials', description: 'Technical certifications and first-aid training.', items: resume.certifications.children },
-  { id: 'qile-awards', title: 'Recognition', description: 'Hackathons, cybersecurity challenges and innovation.', items: resume.awards.children },
-  { id: 'qile-community', title: 'Community', description: 'Leadership, volunteering and communities I contribute to.', items: resume.activities.children },
-];
-
-function markSelected(document, id) {
-  document.querySelectorAll('svg [data-node-id]').forEach((node) => {
-    node.setAttribute('aria-pressed', String(node.getAttribute('data-node-id') === id));
-    const rect = node.querySelector('rect');
-    if (!rect) return;
-    if (node.getAttribute('data-node-id') === id) {
-      rect.style.stroke = '#7ee787';
-      rect.style.strokeWidth = '2.5';
-    } else {
-      rect.style.removeProperty('stroke');
-      rect.style.removeProperty('stroke-width');
-    }
-  });
-}
-
-function MainDashboard() {
-  const [activeId, setActiveId] = useState('qile-profile');
-  const [query, setQuery] = useState('');
-  const [mapOpen, setMapOpen] = useState(() => window.innerWidth > 768);
-  const frameRef = useRef(null);
-  const mapRef = useRef(null);
-  const explorerRef = useRef(null);
-  const cleanupFrame = useRef(null);
-  const selectedRef = useRef(activeId);
-
-  const selectCategory = useCallback((id, fromDiagram = false) => {
-    if (!categories.some((category) => category.id === id)) return;
-    setActiveId(id);
-    setQuery('');
-    if (fromDiagram) {
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      explorerRef.current?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'start' });
-    }
-  }, []);
-
-  const connectDiagram = useCallback(() => {
-    cleanupFrame.current?.();
-    const document = frameRef.current?.contentDocument;
-    if (!document) return;
-    const svg = document.querySelector('svg');
-    svg?.setAttribute('role', 'group');
-    svg?.removeAttribute('aria-labelledby');
-    svg?.removeAttribute('aria-describedby');
-    svg?.setAttribute('aria-label', 'Qi Le portfolio connections');
-
-    document.querySelectorAll('svg [data-node-id]').forEach((node) => {
-      const category = categories.find((item) => item.id === node.getAttribute('data-node-id'));
-      if (!category) return;
-      node.setAttribute('role', 'button');
-      node.setAttribute('tabindex', '0');
-      node.setAttribute('aria-label', `Explore ${category.title}`);
-      node.removeAttribute('aria-describedby');
-      node.style.cursor = 'pointer';
-    });
-
-    const handleSelect = (event) => {
-      if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') return;
-      const node = event.target.closest?.('svg [data-node-id]');
-      if (!node) return;
-      const id = node.getAttribute('data-node-id');
-      if (!categories.some((category) => category.id === id)) return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      markSelected(document, id);
-      selectCategory(id, true);
-    };
-
-    document.addEventListener('click', handleSelect, true);
-    document.addEventListener('keydown', handleSelect, true);
-    markSelected(document, selectedRef.current);
-    cleanupFrame.current = () => {
-      document.removeEventListener('click', handleSelect, true);
-      document.removeEventListener('keydown', handleSelect, true);
-    };
-  }, [selectCategory]);
-
-  useEffect(() => {
-    selectedRef.current = activeId;
-    const document = frameRef.current?.contentDocument;
-    if (document) markSelected(document, activeId);
-  }, [activeId]);
-
-  useEffect(() => {
-    const frame = frameRef.current;
-    const map = mapRef.current;
-    if (!frame || !map) return;
-    const resize = () => {
-      // Match the authored SVG ratio and the viewer's 8px embed padding.
-      frame.style.height = `${Math.ceil(Math.max(0, frame.clientWidth - 16) * 890 / 1390 + 16)}px`;
-    };
-    const observer = new ResizeObserver(resize);
-    observer.observe(map);
-    resize();
-    return () => observer.disconnect();
-  }, [mapOpen]);
-
-  useEffect(() => {
-    if (frameRef.current?.contentDocument?.querySelector('svg')) connectDiagram();
-    return () => cleanupFrame.current?.();
-  }, [connectDiagram]);
-
-  const active = categories.find((category) => category.id === activeId);
-  const search = query.trim().toLowerCase();
-  const matches = search
-    ? categories.map((category) => ({ ...category, items: category.items.filter((item) => `${category.title} ${item.label} ${item.desc}`.toLowerCase().includes(search)) })).filter((category) => category.items.length)
-    : [active];
-  const resultCount = matches.reduce((total, category) => total + category.items.length, 0);
-
+const OrbNode = memo(function OrbNode({ data, selected }) {
   return (
-    <section className="profile-topology" aria-labelledby="topology-title">
-      <header className="topology-heading">
-        <div>
-          <p className="topology-eyebrow">CONNECTED PROFILE / 08 AREAS</p>
-          <h1 id="topology-title">Everything connects.</h1>
-          <p className="topology-description">Explore the work, skills and experiences behind Qi Le.</p>
-        </div>
-        <a className="topology-viewer-link" href="/diagrams/portfolio-topology.html?theme=dark" target="_blank" rel="noopener noreferrer">Open full map <span aria-hidden="true">↗</span></a>
-      </header>
+    <div className={`network-orb ${data.kind} ${selected ? 'is-selected' : ''}`} style={{ '--node-color': data.color }}>
+      <Handle type="target" position={Position.Left} isConnectable={false} />
+      <div className="network-orb-circle">{data.kind === 'profile' ? <img src={profile.portrait} alt="" draggable="false" /> : <span>{data.code}</span>}</div>
+      <strong>{data.label}</strong><small>{data.subtitle}</small>
+      <Handle type="source" position={Position.Right} isConnectable={false} />
+    </div>
+  );
+});
+const nodeTypes = { orb: OrbNode };
+const fitOptions = { padding: .18, maxZoom: 1.05 };
 
-      <div className="topology-map-panel">
-        <div className="topology-map-bar">
-          <span><span className="topology-status-dot" aria-hidden="true" /> Portfolio connections</span>
-          <button type="button" aria-expanded={mapOpen} aria-controls="portfolio-map" onClick={() => setMapOpen((open) => !open)}>{mapOpen ? 'Hide map −' : 'Show map +'}</button>
-        </div>
-        <div id="portfolio-map" ref={mapRef} hidden={!mapOpen}>
-          <iframe ref={frameRef} onLoad={connectDiagram} title="Qi Le portfolio connections — select an area to explore its details" src="/diagrams/portfolio-topology.html?embed=1&theme=dark" className="topology-map-frame" />
-          <p className="topology-map-caption">Select a topic to read its details below. Connections describe areas of my profile.</p>
-        </div>
-      </div>
-
-      <section className="topology-explorer" ref={explorerRef} aria-labelledby="explorer-title">
-        <div className="topology-explorer-heading">
-          <div><p className="topology-eyebrow">FOLLOW YOUR CURIOSITY</p><h2 id="explorer-title">Explore the details</h2></div>
-          <label className="topology-search" htmlFor="topology-search">
-            <span className="topology-search-label">Search this profile</span>
-            <input id="topology-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search projects, skills, experience…" aria-controls="topology-results" />
-          </label>
-        </div>
-        <nav className="topology-categories" aria-label="Portfolio topics">
-          {categories.map((category) => (
-            <button type="button" key={category.id} aria-pressed={!search && activeId === category.id} onClick={() => selectCategory(category.id)}>
-              {category.title}<span>{category.items.length}</span>
-            </button>
-          ))}
-        </nav>
-        <p className="topology-result-summary" role="status">{search ? `${resultCount} matching ${resultCount === 1 ? 'detail' : 'details'} across ${matches.length} ${matches.length === 1 ? 'topic' : 'topics'}.` : active.description}</p>
-        <div id="topology-results">
-          {matches.map((category) => (
-            <section className="topology-result-group" key={category.id} aria-label={category.title}>
-              {search && <h3>{category.title}</h3>}
-              <div className="topology-detail-grid">
-                {category.items.map((item) => (
-                  <article className="topology-detail-card" key={item.id}>
-                    <span className="topology-detail-code">{item.label.replaceAll('_', ' ')}</span>
-                    <h3>{item.desc.split('\n')[0]}</h3>
-                    {item.desc.includes('\n') && <p>{item.desc.split('\n').slice(1).join('\n')}</p>}
-                  </article>
-                ))}
-              </div>
-            </section>
-          ))}
-          {!matches.length && <div className="topology-empty"><h3>No connections found.</h3><p>Try a technology, company or project name.</p><button type="button" onClick={() => setQuery('')}>Clear search</button></div>}
-        </div>
-      </section>
-    </section>
+function NetworkCanvas({ expandedId, selectedId, onSelect }) {
+  const [graph] = useState(() => buildNetwork(expandedId));
+  const [nodes, , onNodesChange] = useNodesState(graph.nodes);
+  const { fitView } = useReactFlow();
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    let frame = 0;
+    let lastSize = '';
+    const observer = new ResizeObserver(([entry]) => {
+      const size = `${Math.round(entry.contentRect.width)}:${Math.round(entry.contentRect.height)}`;
+      if (size === lastSize) return;
+      lastSize = size;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => fitView(fitOptions));
+    });
+    observer.observe(canvasRef.current);
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); };
+  }, [fitView]);
+  const edges = graph.edges.map(edge => {
+    const active = selectedId === 'profile' || edge.source === selectedId || edge.target === selectedId;
+    const color = graph.nodes.find(node => node.id === edge.target)?.data.color || '#86efac';
+    return { ...edge, label: expandedId ? edge.label : undefined, type: 'straight', selectable: false, focusable: false,
+      labelStyle: { fill: '#8da5c3', fontSize: 9 }, labelBgStyle: { fill: '#0b1320', fillOpacity: .95 }, labelBgPadding: [5, 3], labelBgBorderRadius: 3,
+      style: { stroke: active ? color : '#36465a', strokeWidth: active ? 1.8 : 1, opacity: active ? .85 : .55, strokeDasharray: edge.crosslink ? '4 5' : undefined } };
+  });
+  return (
+    <div className="network-canvas" ref={canvasRef} aria-label="Interactive portfolio network" onKeyDownCapture={event => {
+      const node = event.target.closest?.('.react-flow__node');
+      if (node && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault(); event.stopPropagation(); onSelect(node.getAttribute('data-id'));
+      }
+    }}>
+      <ReactFlow nodes={nodes.map(node => ({ ...node, selected: node.id === selectedId }))} edges={edges} onNodesChange={onNodesChange}
+        nodeTypes={nodeTypes} onNodeClick={(_, node) => onSelect(node.id)} onNodeDoubleClick={(_, node) => onSelect(node.id, true)}
+        fitView fitViewOptions={fitOptions} minZoom={.25} maxZoom={2} nodesConnectable={false} edgesReconnectable={false} deleteKeyCode={null}
+        zoomOnScroll={false} zoomOnDoubleClick={false} colorMode="dark" preventScrolling={false} ariaLabelConfig={{ 'controls.fitView.ariaLabel': 'Fit network to view' }}>
+        <Background color="#233345" gap={24} size={1} />
+        <Controls showInteractive={false} />
+        <MiniMap style={{ width: 110, height: 75 }} nodeColor={node => node.data.color} nodeStrokeWidth={0} maskColor="#080e1799" pannable zoomable ariaLabel="Network minimap" />
+      </ReactFlow>
+      <div className="network-canvas-meta" aria-hidden="true">{nodes.length} nodes <span>/</span> {edges.length} connections</div>
+    </div>
   );
 }
 
-export default MainDashboard;
+export default function MainDashboard() {
+  const [selectedId, setSelectedId] = useState('profile');
+  const [expandedId, setExpandedId] = useState(null);
+  const [query, setQuery] = useState('');
+  const [revision, setRevision] = useState(0);
+  const inspectorRef = useRef(null);
+  const detail = getDetail(selectedId);
+  const topic = getTopic(detail?.topicId || selectedId);
+  const matches = searchProfile(query);
+  const select = useCallback((id, expand = false) => {
+    setSelectedId(id);
+    setQuery('');
+    if (expand && getTopic(id)) setExpandedId(id);
+    if (window.innerWidth < 980) inspectorRef.current?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+  }, []);
+  const openDetail = item => { setExpandedId(item.topicId); select(item.id); };
+  const reset = () => { setExpandedId(null); setSelectedId('profile'); setQuery(''); setRevision(value => value + 1); };
+  return (
+    <section className="profile-network" aria-labelledby="network-title">
+      <header className="network-heading">
+        <div><p className="network-eyebrow">THE CONNECTIONS BEHIND THE WORK</p><h1 id="network-title">My network, explored.</h1><p>Follow a connection. Get to know the details.</p></div>
+        <button className="network-reset" type="button" onClick={reset}>↺ Reset view</button>
+      </header>
+      <div className="network-toolbar">
+        <nav aria-label="Network views"><button type="button" aria-current={!expandedId ? 'page' : undefined} onClick={reset}>All connections</button>{expandedId && <><span aria-hidden="true">/</span><span>{getTopic(expandedId).title}</span></>}</nav>
+        <label className="network-search"><span className="sr-only">Search portfolio connections</span><input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Find a skill, company, project…" /></label>
+      </div>
+      {query.trim() && <section className="network-search-results" aria-label="Search results"><p role="status">{matches.length} matching connections</p>{matches.length ? <div>{matches.map(item => <button type="button" key={item.id} onClick={() => openDetail(item)}><span style={{ color: item.color }}>{getTopic(item.topicId).code}</span><strong>{item.name}</strong><small>{getTopic(item.topicId).title} ↗</small></button>)}</div> : <p>Try “Huawei”, “Rust” or “Cloud”.</p>}</section>}
+      <div className="network-workspace">
+        <div className="network-map-panel">
+          <div className="network-map-topline"><span className="network-signal" />{expandedId ? `${getTopic(expandedId).title} / neighborhood` : 'Qi Le / connected profile'}<span className="network-map-tag">INTERACTIVE</span></div>
+          <ReactFlowProvider key={`${expandedId || 'overview'}-${revision}`}><NetworkCanvas expandedId={expandedId} selectedId={selectedId} onSelect={select} /></ReactFlowProvider>
+          <p className="network-map-hint">Drag to arrange / pan · Pinch or + / − to zoom<br />Solid links: profile areas · Dotted links: shared work or study</p>
+        </div>
+        <aside className="network-inspector" ref={inspectorRef} aria-labelledby="network-detail-title">
+          <div className="network-inspector-bar"><span>CONNECTION DETAILS</span><span className="network-signal" /></div>
+          {selectedId === 'profile' ? <>
+            <p className="network-eyebrow">THE PERSON AT THE CENTER</p><h2 id="network-detail-title">Chang Qi Le<span>.</span></h2>
+            <p className="network-role">{profile.role}</p><p>{profile.company} · {profile.department}</p>
+            <div className="network-tags">{profile.focus.map(focus => <span key={focus}>{focus}</span>)}</div>
+            <p className="network-bio">{profile.outlook}</p><a href={`mailto:${profile.email}`}>{profile.email} ↗</a>
+            <div className="network-next"><h3>Where would you like to go?</h3><p>Select a node for a closer look. Expand a topic to reveal its individual connections.</p></div>
+            <span className="network-total">{details.length} details across {topics.length} areas</span>
+          </> : <>
+            <p className="network-eyebrow" style={{ color: topic.color }}>{detail ? topic.title : 'EXPLORE A TOPIC'}</p><h2 id="network-detail-title">{detail?.name || topic.title}</h2>
+            {detail ? <><p className="network-detail-body">{detail.desc}</p><h3 className="network-related-title">Connected to</h3><div className="network-related">{[topic.id, ...(relatedTopics[detail.id] || [])].map(id => <button type="button" key={id} onClick={() => { setExpandedId(id); select(id); }}>{getTopic(id).title} <span>↗</span></button>)}</div><button className="network-back" type="button" onClick={() => select(topic.id)}>← All {topic.title.toLowerCase()} details</button></> : <>
+              <p>{topic.description}</p><button className="network-expand" type="button" onClick={() => setExpandedId(expandedId === topic.id ? null : topic.id)}>{expandedId === topic.id ? 'Return to full network' : `Expand ${topic.items.length} connections`} <span>↗</span></button>
+              <div className="network-item-list">{topic.items.map(item => <button type="button" key={item.id} onClick={() => openDetail(getDetail(item.id))}><span>{getDetail(item.id).name}</span><small>{item.desc.split('\n')[0]}</small><b aria-hidden="true">↗</b></button>)}</div>
+            </>}
+          </>}
+        </aside>
+      </div>
+      <nav className="network-topics" aria-label="Explore portfolio topics">{topics.map(item => <button type="button" key={item.id} aria-pressed={topic?.id === item.id} style={{ '--topic-color': item.color }} onClick={() => select(item.id)}><span />{item.title}<small>{item.items.length}</small></button>)}</nav>
+    </section>
+  );
+}

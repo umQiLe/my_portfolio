@@ -1,327 +1,104 @@
-import { useState, useEffect, useRef } from 'react';
-import resumeData from '../data/resume.json';
-import qaDatabase from '../data/qa.json';
+import { useEffect, useRef, useState } from 'react';
+import { commands, completionFor, runCommand, suggestionsFor } from '../lib/portfolioShell';
 import './CLIWidget.css';
 
-const CLIWidget = ({ onTriggerMascot }) => {
+export default function CLIWidget({ onTriggerMascot, onNavigate }) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
-  const [history, setHistory] = useState([
-    { command: 'initial_link_up', output: 'Link up. Status 200.' },
-    { command: 'help', output: 'Type \'help\' to see the manual.' },
-  ]);
-
-  // --- NEW LIVE CHAT STATES ---
+  const [history, setHistory] = useState([]);
   const [chatMode, setChatMode] = useState(false);
-  const [isThinking, setIsThinking] = useState(false);
-  
   const [cmdHistory, setCmdHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-
-  const terminalEndRef = useRef(null);
   const inputRef = useRef(null);
-  const commandBatch = useRef([]);
-
-  // Define the virtual file system based on your JSON keys
-  const availableFiles = [
-    'about.txt', 
-    'experience.log', 
-    'skills.json', 
-    'projects.txt', 
-    'certifications.txt',
-    'awards.txt',
-    'activities.log',
-    'resume.pdf'
-  ];
+  const toggleRef = useRef(null);
+  const transcriptRef = useRef(null);
+  const draftRef = useRef('');
+  const suggestions = chatMode ? [] : suggestionsFor(input).slice(0, 6);
 
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [history, isThinking]);
+    if (isOpen) inputRef.current?.focus({ preventScroll: true });
+  }, [isOpen]);
 
   useEffect(() => {
-    if (isOpen && !isThinking) {
-      inputRef.current?.focus();
-    }
-  }, [isOpen, isThinking]);
+    // Scroll only the transcript; never scroll the portfolio behind the console.
+    const transcript = transcriptRef.current;
+    if (transcript && isOpen) transcript.scrollTop = transcript.scrollHeight;
+  }, [history, isOpen]);
 
   useEffect(() => {
-    const handleUnload = () => {
-      if (commandBatch.current.length > 0) {
-        // Package the data
-        const payload = JSON.stringify({ 
-          sessionTime: new Date().toISOString(),
-          logs: commandBatch.current 
-        });
-      
-        // sendBeacon is reliable for firing during page close
-        navigator.sendBeacon('/api/logCommand', payload);
+    const toggle = event => {
+      if ((event.ctrlKey || event.metaKey) && event.code === 'Backquote' && !event.repeat) {
+        event.preventDefault();
+        setIsOpen(open => !open);
+        toggleRef.current?.focus({ preventScroll: true });
       }
     };
-
-    window.addEventListener('beforeunload', handleUnload);
-    return () => window.removeEventListener('beforeunload', handleUnload);
+    window.addEventListener('keydown', toggle);
+    return () => window.removeEventListener('keydown', toggle);
   }, []);
 
-  const handleKeyDown = (e) => {
-    // Tab Completion Logic
-    if (e.key === 'Tab') {
-      e.preventDefault(); // Prevent focus shifting
-      const args = input.split(' ');
-      
-      // Only autocomplete if there is a command (like 'cat') and a partial file name
-      if (args.length > 1) {
-        const target = args[args.length - 1];
-        const matches = availableFiles.filter(f => f.startsWith(target));
-        
-        if (matches.length === 1) {
-          // Exact match found, complete the string
-          args[args.length - 1] = matches[0];
-          setInput(args.join(' '));
-        } else if (matches.length > 1) {
-          // Multiple matches: show options in terminal history
-          setHistory((prev) => [
-            ...prev, 
-            { command: input, output: matches.join('   ') }
-          ]);
-        }
-      }
-    } 
-    // Up Arrow History
-    else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (cmdHistory.length > 0) {
-        const newIndex = historyIndex === -1 ? cmdHistory.length - 1 : Math.max(historyIndex - 1, 0);
-        setHistoryIndex(newIndex);
-        setInput(cmdHistory[newIndex]);
-      }
-    } 
-    // Down Arrow History
-    else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (historyIndex !== -1) {
-        const newIndex = historyIndex + 1;
-        if (newIndex >= cmdHistory.length) {
-          setHistoryIndex(-1);
-          setInput('');
-        } else {
-          setHistoryIndex(newIndex);
-          setInput(cmdHistory[newIndex]);
-        }
-      }
-    }
-  };
-
-  // Helper function to format JSON arrays into neat terminal output
-  const formatJsonData = (dataNode) => {
-    return dataNode.children.map(item => `[${item.label}] ${item.desc}`).join('\n\n');
-  };
-
-  // --- SIMPLE NLP ENGINE ---
-  const findBotResponse = (userInput) => {
-    const userWords = userInput.toLowerCase().replace(/[^\w\s]/gi, '').split(' ');
-    
-    let bestMatch = null;
-    let highestScore = 0;
-
-    for (const qa of qaDatabase) {
-      // Count how many keywords from the database exist in the user's sentence
-      const score = qa.keywords.filter(keyword => userWords.includes(keyword)).length;
-      
-      if (score > highestScore) {
-        highestScore = score;
-        bestMatch = qa.response;
-      }
-    }
-
-    // Default fallback if no keywords match
-    return bestMatch || "I'm not quite sure I understand. Try asking about Qi Le's 'skills', 'experience', 'projects', or 'hiring' status!";
-  };
-
-  const handleCommandSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!input.trim()) {
-      setHistory((prev) => [...prev, { command: '', output: '' }]);
-      setInput('');
-      return;
-    }
-
-    const currentInput = input.trim();
-
-    // Save to our batch array quietly in the background
-    commandBatch.current.push({
-      mode: chatMode ? 'ASSISTANT_QUERY' : 'TERMINAL_CMD',
-      text: currentInput
-    });
-    
-    setCmdHistory((prev) => [...prev, currentInput]);
+  const collapse = () => { setIsOpen(false); toggleRef.current?.focus({ preventScroll: true }); };
+  const chooseSuggestion = value => { setInput(value); setHistoryIndex(-1); inputRef.current?.focus({ preventScroll: true }); };
+  const execute = value => {
+    const command = value.trim();
+    if (!command) return;
+    const nextHistory = [...cmdHistory, command].slice(-100);
+    const result = runCommand(command, { history: nextHistory, chatMode });
+    setCmdHistory(nextHistory);
     setHistoryIndex(-1);
+    draftRef.current = '';
     setInput('');
+    if (result.chatMode !== undefined) setChatMode(result.chatMode);
+    if (result.clear) setHistory([]);
+    else setHistory(previous => [...previous, { command, output: result.output, mode: chatMode ? 'faq' : 'shell' }].slice(-60));
+    if (result.mascot) onTriggerMascot?.(result.mascot);
+    if (result.navigate) onNavigate?.(result.navigate);
+    if (result.close) collapse();
+    else inputRef.current?.focus({ preventScroll: true });
+  };
 
-    // ==========================================
-    // LOGIC BRANCH A: CHATBOT MODE
-    // ==========================================
-    if (chatMode) {
-      if (currentInput.toLowerCase() === 'exit') {
-        setChatMode(false);
-        setHistory((prev) => [...prev, { command: currentInput, output: 'Disconnected from Auto-Assistant. Returning to local shell.' }]);
-        return;
-      }
-
-      setHistory((prev) => [...prev, { command: currentInput, output: '' }]);
-      setIsThinking(true);
-
-      // Simulate a network delay so it feels like a real bot typing
-      const typingDelay = Math.floor(Math.random() * 1000) + 1000; // Random delay between 1s and 2s
-
-      setTimeout(() => {
-        const reply = findBotResponse(currentInput);
-        
-        setHistory((prev) => {
-          const newHistory = [...prev];
-          newHistory[newHistory.length - 1].output = `[ASSISTANT]: ${reply}`;
-          return newHistory;
-        });
-        
-        setIsThinking(false);
-      }, typingDelay);
-
-      return;
+  const handleKeyDown = event => {
+    if (event.key === 'Tab' && !event.shiftKey && !chatMode) {
+      const completed = completionFor(input);
+      if (completed !== input) { event.preventDefault(); chooseSuggestion(completed); }
+    } else if (event.key === 'ArrowUp' && cmdHistory.length) {
+      event.preventDefault();
+      if (historyIndex === -1) draftRef.current = input;
+      const index = historyIndex === -1 ? cmdHistory.length - 1 : Math.max(0, historyIndex - 1);
+      setHistoryIndex(index);
+      setInput(cmdHistory[index]);
+    } else if (event.key === 'ArrowDown' && historyIndex !== -1) {
+      event.preventDefault();
+      const index = historyIndex + 1;
+      if (index >= cmdHistory.length) { setHistoryIndex(-1); setInput(draftRef.current); }
+      else { setHistoryIndex(index); setInput(cmdHistory[index]); }
+    } else if (event.ctrlKey && event.key.toLowerCase() === 'l') {
+      event.preventDefault(); setHistory([]);
     }
-
-    // ==========================================
-    // LOGIC BRANCH B: NORMAL TERMINAL MODE
-    // ==========================================
-    const args = currentInput.split(' ');
-    const cmd = args[0].toLowerCase();
-    let output = '';
-
-    switch (cmd) {
-
-      case 'qile':
-        if (args[1] === 'come') {
-          if (onTriggerMascot) onTriggerMascot('open');
-          output = 'Deploying desktop mascot companion...';
-        } else if (args[1] === 'bye') {
-          if (onTriggerMascot) onTriggerMascot('close');
-          output = 'Mascot returning to system tray. Goodbye!';
-        } else {
-          output = 'Usage: qile come  |  qile bye';
-        }
-        break;
-
-      case 'ssh':
-        if (args[1] === 'admin@host') {
-          setChatMode(true);
-          output = 'Establishing secure socket layer...\nConnected to Virtual Assistant.\nType your question below. Type \'exit\' to disconnect.';
-        } else {
-          output = `ssh: Could not resolve hostname ${args[1] || ''}: Name or service not known`;
-        }
-        break;
-
-      case 'help':
-        output = `NAME
-    portfolio-cli - interactive command line interface
-
-SYNOPSIS
-    [COMMAND] [OPTIONS] [FILE]
-
-DESCRIPTION
-    This shell provides text-based access to the portfolio database.
-    Use standard UNIX commands or dedicated shortcuts to navigate.
-    * Hint: Use [TAB] to autocomplete filenames.
-
-COMMANDS
-    cat <file>   Concatenate files and print on the standard output.
-    ls           List directory contents.
-    pwd          Print name of current working directory.
-    whoami       Print effective userid.
-    date         Print the system date and time.
-    echo <text>  Display a line of text.
-    clear        Clear the terminal screen.
-
-SHORTCUTS
-    about, skills, exp, projects, contact`;
-        break;
-
-      case 'ls': output = availableFiles.join('   '); break;
-      case 'cat': {
-        const file = args[1];
-        if (!file) output = 'cat: missing file operand\nTry \'ls\' to see available files.';
-        else if (file === 'about.txt') output = formatJsonData(resumeData.core);
-        else if (file === 'experience.log') output = formatJsonData(resumeData.experience);
-        else if (file === 'skills.json') output = formatJsonData(resumeData.skills);
-        else if (file === 'projects.txt') output = formatJsonData(resumeData.projects);
-        else if (file === 'certifications.txt') output = formatJsonData(resumeData.certifications);
-        else if (file === 'awards.txt') output = formatJsonData(resumeData.awards);
-        else if (file === 'activities.log') output = formatJsonData(resumeData.activities);
-        else if (file === 'resume.pdf') output = 'Error: Cannot print binary PDF to terminal.';
-        else output = `cat: ${file}: No such file or directory`;
-        break;
-      }
-
-      case 'about': output = formatJsonData(resumeData.core); break;
-      case 'exp': output = formatJsonData(resumeData.experience); break;
-      case 'skills': output = formatJsonData(resumeData.skills); break;
-      case 'projects': output = formatJsonData(resumeData.projects); break;
-      case 'contact': output = resumeData.core.children.find(c => c.id === 'c3').desc; break;
-      case 'pwd': output = '/home/guest/portfolio'; break;
-      case 'whoami': output = 'guest_user'; break;
-      case 'date': output = new Date().toString(); break;
-      case 'echo': output = args.slice(1).join(' '); break;
-      case 'sudo': output = 'guest_user is not in the sudoers file. This incident will be reported.'; break;
-      case 'clear': setHistory([]); return;
-      default: output = `bash: ${cmd}: command not found`;
-    }
-
-    setHistory((prev) => [...prev, { command: currentInput, output }]);
   };
 
   return (
-    <div className={`cli-widget-container ${isOpen ? 'open' : 'closed'}`}>
-      <div className="cli-header" onClick={() => setIsOpen(!isOpen)}>
-        {/* Dynamic header text based on mode */}
-        <span className="terminal-title">{chatMode ? 'SECURE_CHANNEL // AUTO_ASSISTANT' : 'cli@guest_session:~'}</span>
-        <span className="toggle-icon">{isOpen ? '▼' : '▲'}</span>
-      </div>
-
-      <div className="cli-body" onClick={() => !isThinking && inputRef.current?.focus()}>
-        {history.map((item, index) => (
-          <div key={index} className="history-item">
-            <div className="command-line">
-              <span className="prompt">{item.command === 'exit' ? 'guest@portfolio:~$ ' : (chatMode || item.output?.includes('Connected to Virtual Assistant') ? 'message> ' : 'guest@portfolio:~$ ')}</span>
-              <span className="cmd-text">{item.command}</span>
-            </div>
-            {item.output && <div className="output-text">{item.output}</div>}
-          </div>
-        ))}
-
-        {/* Thinking Indicator */}
-        {isThinking && (
-          <div className="history-item">
-            <div className="output-text blink-text" style={{ color: 'var(--accent-green)' }}>[ASSISTANT] is typing...</div>
-          </div>
-        )}
-
-        {/* Input Form (Hidden while thinking) */}
-        {!isThinking && (
-          <form onSubmit={handleCommandSubmit} className="input-form">
-            <span className="prompt">{chatMode ? 'message> ' : 'guest@portfolio:~$ '}</span>
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              spellCheck="false"
-              autoComplete="off"
-            />
-          </form>
-        )}
-        <div ref={terminalEndRef} />
-      </div>
-    </div>
+    <section className={`cli-widget-container ${isOpen ? 'open' : 'closed'}`} aria-label="Portfolio console" onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); collapse(); } }}>
+      <header className="cli-header">
+        <button ref={toggleRef} className="cli-toggle" type="button" aria-expanded={isOpen} aria-controls="portfolio-console-body" aria-label={isOpen ? 'Collapse portfolio console' : 'Open portfolio console'} onClick={() => setIsOpen(open => !open)}>
+          <span className="cli-symbol" aria-hidden="true">&gt;_</span><span className="terminal-title">{chatMode ? 'Qi Le / profile FAQ' : 'Qi Le / portfolio console'}</span><span className="cli-toggle-hint">{isOpen ? 'COLLAPSE' : 'TRY A COMMAND'}</span><span aria-hidden="true">{isOpen ? '⌄' : '⌃'}</span>
+        </button>
+      </header>
+      {isOpen && <div id="portfolio-console-body" className="cli-body">
+        <div className="cli-session-bar"><span><i />{chatMode ? 'LOCAL PROFILE FAQ' : 'LOCAL SESSION'}</span><button type="button" onClick={() => setHistory([])} aria-label="Clear console output">Clear</button></div>
+        <div className="cli-transcript" ref={transcriptRef} role="log" aria-label="Console output" aria-live="polite" aria-relevant="additions" tabIndex={0}>
+          <div className="cli-welcome"><p>Explore from the command line.</p><span>{commands.length} commands · saved profile data · no setup needed</span></div>
+          {!history.length && <div className="cli-quick-actions" aria-label="Quick commands">{(chatMode ? ['current role', 'skills', 'projects', 'exit'] : ['help', 'about', 'open topology', 'ask current role']).map(command => <button type="button" key={command} onClick={() => execute(command)}>{command}<span aria-hidden="true"> ↵</span></button>)}</div>}
+          {history.map((item, index) => <div className="cli-history-item" key={index}><div className="cli-command-line"><span className="cli-prompt">{item.mode === 'faq' ? 'faq ›' : 'guest $'}</span><span>{item.command}</span></div>{item.output && <pre className="cli-output-text">{item.output}</pre>}</div>)}
+        </div>
+        {suggestions.length > 0 && <div className="cli-suggestions" aria-label="Command suggestions">{suggestions.map(item => <button key={item.value} type="button" onClick={() => chooseSuggestion(item.value)}><code>{item.value}</code><span>{item.description}</span></button>)}</div>}
+        <form onSubmit={event => { event.preventDefault(); execute(input); }} className="cli-input-form">
+          <label htmlFor="portfolio-command" className="cli-prompt">{chatMode ? 'faq ›' : 'guest $'}</label>
+          <input id="portfolio-command" ref={inputRef} type="text" value={input} onChange={event => { setInput(event.target.value); setHistoryIndex(-1); }} onKeyDown={handleKeyDown} aria-label={chatMode ? 'Ask the local profile FAQ' : 'Portfolio command'} aria-describedby="cli-input-hint" spellCheck="false" autoComplete="off" autoCapitalize="off" autoCorrect="off" enterKeyHint="send" placeholder={chatMode ? 'Ask about Qi Le…' : 'Type help to get started…'} />
+          <button type="submit" aria-label="Run command" disabled={!input.trim()}>↵</button>
+        </form>
+        <p id="cli-input-hint" className="cli-input-hint"><span>Tab complete · ↑ ↓ history</span><span>Esc collapse · Ctrl + ` toggle</span></p>
+      </div>}
+    </section>
   );
-};
-
-export default CLIWidget;
+}

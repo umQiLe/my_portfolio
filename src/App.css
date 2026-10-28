@@ -168,14 +168,4 @@ body {
     padding: 12px;
   }
 
-  /* CLI Widget mobile adjustments */
-  .cli-widget-container {
-    width: calc(100% - 20px);
-    right: 10px;
-    left: 10px;
-  }
-  
-  .cli-widget-container.open {
-    height: 300px;
-  }
 }

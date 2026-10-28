@@ -1,29 +1,22 @@
 # Portfolio topology
 
-The Topology tab embeds the exact Archify HTML in `public/diagrams/portfolio-topology.html`. The same HTML opens independently with its full search, focus, pan/zoom, theme and export controls. The React detail explorer uses `src/data/overview.json` and `src/data/resume.json`; selecting a diagram node opens the matching topic with pointer or keyboard input.
+The Topology tab now uses React Flow for a native interactive network. The center connects to seven profile areas. Solid lines represent topic membership; dotted, labeled lines show relationships documented in the saved profile (for example projects completed at work). These are profile relationships, not live network traffic.
 
-This is a personal profile map. Its arrows connect Qi Le to areas of his portfolio; they do not depict network traffic, service dependencies or a chronological workflow. All diagram components use the neutral external type, and the technical component legend is hidden.
+Select a node with a pointer, Enter or Space to inspect it. Expand a topic to see its individual connections. Drag nodes to arrange them, pan the canvas, use the zoom/fit controls, or navigate with the minimap. Search covers all 31 details, including collapsed topics. Selecting a result opens its neighborhood. Reset restores the original arrangement. Native topic and detail buttons provide an alternative to navigating the graph, especially on smaller screens.
 
-## Sources and updates
+## Sources and implementation
 
-- `portfolio-topology.architecture.json` is the authored diagram specification.
-- `portfolio-topology.delivery.json` records deterministic delivery and SHA-256 hashes.
-- `evidence/` contains the artifact-bound automated browser report, contact sheet and four screenshots.
-- `portfolio-topology.review.json` records the separate perceptual review and website interaction checks.
+- `src/data/profile.js` combines `overview.json` and `resume.json`, defines names, explicit relationships and deterministic graph layouts.
+- `src/components/MainDashboard.jsx` owns network navigation and the detail inspector.
+- `src/lib/portfolioShell.js` reads the same facts for the local portfolio console.
+- `tests/portfolio.test.mjs` checks reachability, network integrity, searching, command parsing, file completion and current FAQ facts. Run `npm test`.
 
-When updating the profile map, reconcile the specification with the two data files, then run the installed Archify CLI from the repository root:
+Design references: [React Flow interaction examples](https://reactflow.dev/examples), [accessibility](https://reactflow.dev/learn/advanced-use/accessibility), and [Cytoscape.js network exploration](https://js.cytoscape.org/). React Flow was selected for its React node support, drag/pan/zoom, keyboard interaction and minimap. A bitmap workflow such as ComfyUI is unnecessary for these interactive elements.
 
-```text
-node <archify-skill>/bin/archify.mjs validate architecture diagrams/portfolio-topology.architecture.json --quality showcase --json
-node <archify-skill>/bin/archify.mjs deliver architecture diagrams/portfolio-topology.architecture.json public/diagrams/portfolio-topology.html --quality showcase --json
-node <archify-skill>/bin/archify.mjs visual-check public/diagrams/portfolio-topology.html --json
-npm run build
-```
+## Previous Archify version
 
-Refresh the delivery receipt and browser evidence after changing the specification. Do not hand-edit the delivered HTML. Git preserves the specification and HTML bytes so the receipt remains verifiable after checkout. Image-generation drafts and unrelated local attachments are not part of this feature.
+`portfolio-topology.architecture.json`, `portfolio-topology.delivery.json`, `portfolio-topology.review.json`, `evidence/`, and `public/diagrams/portfolio-topology.html` preserve the earlier Archify diagram and its original verification. They are no longer embedded in the Topology tab. Those receipts apply to that archived HTML only, not the current React Flow feature. Archify’s license is retained in `ARCHIFY-LICENSE.txt`.
 
-## Review and behavior
+## Console behavior
 
-The former topology used mouse/touch dragging, radial subnodes and hover-only details. Fixed radii and right-aligned popups could clip at the canvas edges; there was no keyboard route to the details. The replacement uses validated orthogonal relationships, native topic buttons, global text search, and readable detail cards. Mobile starts with the map collapsed and all topics available. The hosting configuration permits same-origin frames so the first-party diagram works on Vercel while other sites remain unable to frame this site.
-
-Archify's license is retained in `ARCHIFY-LICENSE.txt`. The self-contained HTML includes its bundled font license.
+The console is a disclosure panel. Its body unmounts when collapsed so the input cannot receive hidden focus. The transcript scrolls internally, independently of the page. No height animation or simulated typing timers run during opening/closing. Escape restores focus to the disclosure button. Ctrl + backtick toggles the panel; Tab completes an unambiguous prefix and otherwise follows normal focus order; Shift + Tab always moves focus. Up/down recall commands and restore the draft. The console is a virtual profile browser, not a system shell. `ask` and the legacy `ssh admin@host` alias use a local FAQ and do not invoke an AI service. Commands are not transmitted to a logging endpoint.

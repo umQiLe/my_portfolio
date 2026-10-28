@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import './App.css';
-import MainDashboard from './components/MainDashboard';
 import ResumeView from './components/ResumeView';
 import ProjectsView from './components/ProjectsView';
 import GatewayView from './components/GatewayView';
 import CLIWidget from './components/CLIWidget';
 import MascotWidget from './components/MascotWidget';
 import OverviewView from './components/OverviewView';
+
+const MainDashboard = lazy(() => import('./components/MainDashboard'));
 
 const navigation = [
   { id: 'OVERVIEW', label: '[O] Overview' },
@@ -78,14 +79,14 @@ function App() {
         {/* Main Content Pane */}
         <main className={`content-pane ${activePane === 'OVERVIEW' ? 'overview-pane' : ''}`}>
           {activePane === 'OVERVIEW' && <OverviewView onNavigate={navigate} />}
-          {activePane === 'DASHBOARD' && <MainDashboard />}
+          {activePane === 'DASHBOARD' && <Suspense fallback={<p role="status">Loading the network…</p>}><MainDashboard /></Suspense>}
           {activePane === 'RESUME' && <ResumeView />}
           {activePane === 'PROJECTS' && <ProjectsView />}
           {activePane === 'GATEWAY' && <GatewayView />}
         </main>
       </div>
 
-      <CLIWidget onTriggerMascot={(action) => setIsMascotActive(action === 'open')} />
+      <CLIWidget onNavigate={navigate} onTriggerMascot={(action) => setIsMascotActive(action === 'open')} />
 
       <MascotWidget 
         isVisible={isMascotActive} 

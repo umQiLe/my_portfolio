@@ -1,72 +1,41 @@
-:root {
-  --cli-bg: #161b22;
-  --cli-header: #21262d;
-  --cli-border: #30363d;
-  --cli-prompt: #58a6ff;
-  --cli-text: #c9d1d9;
-  --cli-output: #8b949e;
-  --font-mono: 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
-}
-
-.cli-widget-container {
-  position: fixed;
-  bottom: 0;
-  right: 20px;
-  width: 400px;
-  max-width: calc(100% - 40px); /* Mobile safety */
-  background-color: rgba(22, 27, 34, 0.85);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--cli-border);
-  border-radius: 6px 6px 0 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  font-family: var(--font-mono);
-  transition: transform 0.3s ease-in-out, height 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 1000; /* Stays above the dashboard */
-}
-
-/* Header / Toggle Bar */
-.cli-header {
-  background-color: rgba(33, 38, 45, 0.9);
-  padding: 8px 12px;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  border-bottom: 1px solid var(--cli-border);
-  user-select: none;
-}
-
-.terminal-title { font-size: 12px; color: var(--cli-text); font-weight: bold; }
-.toggle-icon { color: var(--cli-output); font-size: 12px;}
-
-/* Open vs Closed State */
-.cli-widget-container.closed { height: 33px; /* Just the header height */ }
-.cli-widget-container.open { height: 350px; }
-
-/* CLI Terminal Body */
-.cli-body {
-  padding: 12px;
-  flex-grow: 1;
-  overflow-y: auto;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.history-item { margin-bottom: 8px; }
-.command-line { display: flex; gap: 6px; }
-.prompt { color: var(--cli-prompt); font-weight: bold; }
-.cmd-text { color: #f0f6fc; }
-.output-text { margin-top: 2px; color: var(--cli-output); white-space: pre-wrap;}
-
-.input-form { display: flex; gap: 6px; margin-top: 4px; }
-.input-form input {
-  background: transparent;
-  border: none;
-  color: #f0f6fc;
-  font-family: inherit;
-  font-size: inherit;
-  outline: none;
-  flex-grow: 1;
-}
+.cli-widget-container { position: fixed; bottom: 12px; right: 20px; width: 520px; max-width: calc(100vw - 40px); color: #c9d7e9; background: #101b2bf7; border: 1px solid #35485f; border-radius: 12px; box-shadow: 0 16px 60px #0008; font-family: var(--font-mono); display: flex; flex-direction: column; overflow: hidden; z-index: 1000; }
+.cli-widget-container * { box-sizing: border-box; }
+.cli-widget-container button, .cli-widget-container input { font: inherit; }
+.cli-widget-container button { cursor: pointer; }
+.cli-widget-container button:focus-visible, .cli-widget-container input:focus-visible, .cli-transcript:focus-visible { outline: 2px solid #86efac; outline-offset: -3px; }
+.cli-widget-container.closed { width: 360px; }
+.cli-widget-container.open { height: min(510px, calc(100dvh - 80px)); }
+.cli-header { flex-shrink: 0; background: #18263a; }
+.cli-toggle { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 46px; background: none; border: 0; padding: 10px 14px; color: #99b2d0; text-align: left; }
+.cli-toggle:hover { background: #20324b; }
+.cli-symbol { color: #86efac; font-size: 15px; font-weight: 700; }
+.cli-toggle .terminal-title { color: #d4e0f1; font-size: 11px; font-weight: 500; }
+.cli-toggle-hint { margin-left: auto; font-size: 8px; letter-spacing: .7px; color: #738cae; }
+.cli-body { display: flex; flex-direction: column; flex: 1; min-height: 0; border-top: 1px solid #2b3d55; }
+.cli-session-bar { display: flex; justify-content: space-between; align-items: center; padding: 9px 16px; background: #111e30; flex-shrink: 0; }
+.cli-session-bar > span { display: flex; align-items: center; gap: 7px; font-size: 8px; letter-spacing: 1px; color: #7f98b9; }
+.cli-session-bar i { display: inline-block; width: 5px; height: 5px; background: #86efac; border-radius: 50%; }
+.cli-session-bar button { border: 0; background: none; color: #93b1d6; font-size: 10px; padding: 4px; }
+.cli-transcript { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3d5573 transparent; padding: 8px 16px 16px; }
+.cli-welcome { margin: 8px 0 18px; }
+.cli-welcome p { font-size: 13px; color: #e2eafb; margin: 0 0 7px; }
+.cli-welcome > span { font-size: 9px; color: #718bad; }
+.cli-quick-actions { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 15px; }
+.cli-quick-actions button { padding: 8px 9px; font-size: 10px; color: #b3d5f7; background: #1b2e46; border: 1px solid #304e6c; border-radius: 5px; }
+.cli-quick-actions button span { color: #6e8daa; }
+.cli-history-item { margin: 15px 0 0; font-size: 11px; line-height: 1.7; }
+.cli-command-line { display: flex; gap: 9px; overflow-wrap: anywhere; }
+.cli-prompt { color: #86efac; white-space: nowrap; font-size: 11px; font-weight: 500; }
+.cli-output-text { color: #acbdd5; font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; margin: 6px 0 0; }
+.cli-suggestions { border-top: 1px solid #293e58; max-height: 124px; overflow-y: auto; overscroll-behavior: contain; flex-shrink: 0; padding: 4px 10px; background: #142238; }
+.cli-suggestions button { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 7px 8px; background: none; color: #b2c5df; border: 0; border-radius: 4px; text-align: left; }
+.cli-suggestions button:hover, .cli-suggestions button:focus-visible { background: #213954; }
+.cli-suggestions code { font: inherit; color: #a5d6ff; font-size: 11px; }
+.cli-suggestions span { font-size: 9px; color: #7f9bbc; }
+.cli-input-form { display: flex; align-items: center; gap: 9px; padding: 10px 12px 10px 16px; border-top: 1px solid #304763; background: #0d192a; flex-shrink: 0; }
+.cli-input-form input { width: 0; min-width: 0; flex: 1; color: #e3edfc; background: none; border: 0; min-height: 30px; font-size: 12px; padding: 5px; }
+.cli-input-form input::placeholder { color: #647d9e; }
+.cli-input-form button { color: #b8f6ce; background: #1c3d3a; border: 1px solid #38605a; border-radius: 5px; width: 32px; height: 30px; }
+.cli-input-form button:disabled { cursor: default; opacity: .35; }
+.cli-input-hint { display: flex; justify-content: space-between; gap: 6px; margin: 0; padding: 7px 16px 10px; font-size: 8px; color: #708aaa; background: #0d192a; flex-shrink: 0; }
+@media (max-width: 768px) { .cli-widget-container, .cli-widget-container.closed { left: 10px; right: 10px; bottom: max(8px, env(safe-area-inset-bottom)); width: auto; max-width: none; } .cli-widget-container.open { height: min(490px, calc(100dvh - 80px)); } .cli-toggle { min-height: 44px; } .cli-input-form input { font-size: 16px; } .cli-toggle-hint { font-size: 7px; } .cli-input-hint { font-size: 7px; } }
