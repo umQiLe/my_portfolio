@@ -8,7 +8,7 @@ const OrbNode = memo(function OrbNode({ data, selected }) {
   return (
     <div className={`network-orb ${data.kind} ${selected ? 'is-selected' : ''}`} style={{ '--node-color': data.color }}>
       <Handle type="target" position={Position.Left} isConnectable={false} />
-      <div className="network-orb-circle">{data.kind === 'profile' ? <img src={profile.portrait} alt="" draggable="false" /> : <span>{data.code}</span>}</div>
+      <div className="network-orb-circle">{data.kind === 'profile' ? <img src={profile.avatar} alt="" draggable="false" /> : <span>{data.code}</span>}</div>
       <strong>{data.label}</strong><small>{data.subtitle}</small>
       <Handle type="source" position={Position.Right} isConnectable={false} />
     </div>
