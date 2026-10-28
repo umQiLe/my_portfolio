@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\ChangQiLe\\Documents\\my portfolio\\diagrams\\portfolio-topology.architecture.json",
+  "output": "C:\\Users\\ChangQiLe\\Documents\\my portfolio\\public\\diagrams\\portfolio-topology.html",
+  "specification": {
+    "sha256": "cf211bfaa898ac704b6c9da4878513c0ef3114f06f4a6764e6b523234592dbcf",
+    "bytes": 2628
+  },
+  "artifact": {
+    "sha256": "d673ba7e93039155dd172673d51340c841a655c93c7df5375f49b24055c3669d",
+    "bytes": 806651
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

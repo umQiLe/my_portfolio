@@ -78,7 +78,7 @@ function App() {
         {/* Main Content Pane */}
         <main className={`content-pane ${activePane === 'OVERVIEW' ? 'overview-pane' : ''}`}>
           {activePane === 'OVERVIEW' && <OverviewView onNavigate={navigate} />}
-          {activePane === 'DASHBOARD' && <MainDashboard view={activePane} />}
+          {activePane === 'DASHBOARD' && <MainDashboard />}
           {activePane === 'RESUME' && <ResumeView />}
           {activePane === 'PROJECTS' && <ProjectsView />}
           {activePane === 'GATEWAY' && <GatewayView />}

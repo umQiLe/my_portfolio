@@ -1,0 +1,5 @@
+# Preserve Archify's specification and delivered HTML bytes for hash verification.
+diagrams/*.architecture.json -text
+public/diagrams/*.html -text
+# Preserve exported evidence verbatim, including the vendor CSS formatting.
+diagrams/evidence/*.svg -text -whitespace

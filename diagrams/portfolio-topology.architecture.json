@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Qi Le / Connected Profile",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [1390, 890],
+    "legend": { "mode": "hidden" }
+  },
+  "components": [
+    { "id": "qile-profile", "type": "external", "label": "Chang Qi Le", "sublabel": "IT & Solutions Delivery", "tag": "ANTlabs / Corporate", "pos": [555, 390], "size": [290, 120] },
+    { "id": "qile-education", "type": "external", "label": "Education", "sublabel": "Universiti Malaya / NUS", "tag": "Systems & networks", "pos": [65, 100], "size": [250, 100] },
+    { "id": "qile-expertise", "type": "external", "label": "Expertise", "sublabel": "Networking / Cloud / AI", "tag": "Code, systems & security", "pos": [65, 400], "size": [250, 100] },
+    { "id": "qile-community", "type": "external", "label": "Community", "sublabel": "PEKOM / AIESEC / GDG", "tag": "Leadership & volunteering", "pos": [65, 700], "size": [250, 100] },
+    { "id": "qile-experience", "type": "external", "label": "Experience", "sublabel": "ANTlabs / iFAST / Huawei MY", "tag": "IT & network delivery", "pos": [1085, 100], "size": [250, 100] },
+    { "id": "qile-projects", "type": "external", "label": "Projects", "sublabel": "Automation / Networks / Audio", "tag": "7 documented builds", "pos": [1085, 400], "size": [250, 100] },
+    { "id": "qile-credentials", "type": "external", "label": "Credentials", "sublabel": "Huawei / Cisco / Cloud", "tag": "Technical & first-aid training", "pos": [1085, 700], "size": [250, 100] },
+    { "id": "qile-awards", "type": "external", "label": "Recognition", "sublabel": "Hackathons / CTF / Innovation", "tag": "4 competition awards", "pos": [575, 700], "size": [250, 100] }
+  ],
+  "connections": [
+    { "id": "profile-to-projects", "from": "qile-profile", "to": "qile-projects", "label": "Builds", "variant": "emphasis", "labelAt": [1015, 432] },
+    { "id": "profile-to-education", "from": "qile-profile", "to": "qile-education", "label": "Studied at" },
+    { "id": "profile-to-expertise", "from": "qile-profile", "to": "qile-expertise", "label": "Focuses on", "labelAt": [385, 432] },
+    { "id": "profile-to-community", "from": "qile-profile", "to": "qile-community", "label": "Contributes to" },
+    { "id": "profile-to-experience", "from": "qile-profile", "to": "qile-experience", "label": "Worked with" },
+    { "id": "profile-to-credentials", "from": "qile-profile", "to": "qile-credentials", "label": "Trained in" },
+    { "id": "profile-to-awards", "from": "qile-profile", "to": "qile-awards", "label": "Recognized for", "labelDy": 24 }
+  ]
+}

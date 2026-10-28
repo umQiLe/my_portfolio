@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-28",
+  "diagram_type": "architecture",
+  "specification_sha256": "cf211bfaa898ac704b6c9da4878513c0ef3114f06f4a6764e6b523234592dbcf",
+  "artifact_sha256": "d673ba7e93039155dd172673d51340c841a655c93c7df5375f49b24055c3669d",
+  "artifact_bytes": 806651,
+  "validation": { "checks_passed": 9, "checks_total": 9, "profile": "showcase", "errors": 0, "warnings": 0 },
+  "browser_evidence": "passed",
+  "browser_evidence_receipt": "evidence/portfolio-topology.visual-check.json",
+  "visual_review": "passed",
+  "correction_rounds": 1,
+  "perceptual_review": {
+    "reviewer": "image-capable assistant",
+    "scope": ["1440x900 light", "1440x900 dark", "2048x1320 light", "2048x1320 dark"],
+    "observations": ["All eight nodes and relationship labels are visible.", "Orthogonal connections have no crossings or ambiguous shared corridors.", "The diagram and navigation dock remain contained.", "The large-screen composition fills the available vertical space without a conspicuous empty lower band."]
+  },
+  "website_interaction_checks": [
+    "Clicking the Projects node selects Projects and renders all seven documented projects.",
+    "Pressing Enter on the Education node selects Education and renders both universities.",
+    "Searching Rust returns the matching Expertise and Projects details.",
+    "An unmatched search shows a useful empty state; Clear search restores the selected topic.",
+    "The standalone viewer opens and closes node passports; searching Huawei finds Experience and Credentials.",
+    "SVG export saved successfully and contains all eight nodes, with no scripts or viewer toolbars. The browser download-event reporting stalled; the saved file was verified directly.",
+    "At 390x844, all eight topic buttons are available, the map starts collapsed, and horizontal content fits the viewport.",
+    "Expanding the mobile map fits its complete SVG without document overflow.",
+    "Experience includes the current ANTlabs role and the three previous roles."
+  ]
+}
