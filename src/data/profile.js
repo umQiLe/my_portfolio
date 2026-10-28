@@ -4,7 +4,7 @@ import overview from './overview.json' with { type: 'json' };
 export const profile = overview;
 export const topics = [
   { id: 'experience', title: 'Experience', code: 'EX', color: '#71b7ff', description: 'My current chapter and previous roles.', items: [{ id: 'antlabs', label: 'ANTlabs', desc: `${overview.role}\n${overview.department}\n${overview.outlook}` }, ...resume.experience.children] },
-  { id: 'skills', title: 'Expertise', code: 'SK', color: '#66e0cc', description: 'Networking, cloud, security and AI.', items: resume.skills.children },
+  { id: 'skills', title: 'Expertise', code: 'SK', color: '#8bbdff', description: 'Networking, cloud, security and AI.', items: resume.skills.children },
   { id: 'projects', title: 'Projects', code: 'PR', color: '#bd9cff', description: 'Systems I have built and explored.', items: resume.projects.children },
   { id: 'education', title: 'Education', code: 'ED', color: '#f4ce76', description: 'My foundations in computer science.', items: resume.core.children.filter(item => item.id !== 'c3') },
   { id: 'certifications', title: 'Credentials', code: 'CR', color: '#f49fbb', description: 'Technical qualifications and first-aid training.', items: resume.certifications.children },
@@ -41,7 +41,7 @@ export const searchProfile = query => {
 
 export function buildNetwork(expandedId = null) {
   const expanded = getTopic(expandedId);
-  const nodes = [{ id: 'profile', position: { x: expanded ? -310 : 0, y: 0 }, type: 'orb', data: { label: 'Chang Qi Le', subtitle: 'IT & Solutions Delivery', code: 'QL', kind: 'profile', color: '#86efac' } }];
+  const nodes = [{ id: 'profile', position: { x: expanded ? -310 : 0, y: 0 }, type: 'orb', data: { label: 'Chang Qi Le', subtitle: 'IT & Solutions Delivery', code: 'QL', kind: 'profile', color: '#79b8ff' } }];
   const edges = [];
   if (!expanded) {
     topics.forEach((topic, index) => {

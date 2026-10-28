@@ -37,7 +37,7 @@ function NetworkCanvas({ expandedId, selectedId, onSelect }) {
   }, [fitView]);
   const edges = graph.edges.map(edge => {
     const active = selectedId === 'profile' || edge.source === selectedId || edge.target === selectedId;
-    const color = graph.nodes.find(node => node.id === edge.target)?.data.color || '#86efac';
+    const color = graph.nodes.find(node => node.id === edge.target)?.data.color || '#79b8ff';
     return { ...edge, label: expandedId ? edge.label : undefined, type: 'straight', selectable: false, focusable: false,
       labelStyle: { fill: '#8da5c3', fontSize: 9 }, labelBgStyle: { fill: '#0b1320', fillOpacity: .95 }, labelBgPadding: [5, 3], labelBgBorderRadius: 3,
       style: { stroke: active ? color : '#36465a', strokeWidth: active ? 1.8 : 1, opacity: active ? .85 : .55, strokeDasharray: edge.crosslink ? '4 5' : undefined } };

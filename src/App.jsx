@@ -51,7 +51,7 @@ function App() {
           <span className="title">Portfolio Dashboard</span>
         </div>
         <div className="status-bar">
-          <span className="stat">STATUS: <span className="highlight green">ONLINE</span></span>
+          <span className="stat">STATUS: <span className="highlight blue">ONLINE</span></span>
           <span className="stat">MODE: CHILLER</span>
         </div>
       </header>

@@ -45,7 +45,7 @@
 
 .media-card:hover {
   transform: translateY(-5px);
-  border-color: var(--accent-green);
+  border-color: var(--accent-blue);
 }
 
 .media-display {
@@ -105,7 +105,7 @@
 }
 
 .action-link {
-  color: var(--accent-green);
+  color: var(--accent-blue);
   text-decoration: none;
   font-size: 11px;
   font-weight: bold;
@@ -140,7 +140,7 @@
   border-bottom: 1px solid var(--border-color);
   font-size: 11px;
   font-weight: bold;
-  color: var(--accent-green);
+  color: var(--accent-blue);
   letter-spacing: 1px;
 }
 
@@ -201,7 +201,7 @@
 }
 
 .btn-arrow {
-  color: var(--accent-green);
+  color: var(--accent-blue);
   font-size: 18px;
   font-weight: bold;
 }

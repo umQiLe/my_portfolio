@@ -17,3 +17,9 @@ Passed:
 - Compatible dependency fixes applied; npm audit reports zero vulnerabilities.
 
 The FAQ is local saved content, not an LLM service. Graph relationships describe the portfolio, not live infrastructure. Earlier Archify verification applies only to the preserved standalone Archify HTML.
+
+## Classic terminal and blue theme follow-up
+
+The active website now uses blue primary accents, including navigation, Overview, resume links and the central network node. The console has black scrollback, a flat title bar, a Consolas-style monospace font and an inline shell prompt. Marketing chips and the permanently docked input were removed. Completion choices appear on Tab; a second ambiguous Tab moves focus normally. Clear/Ctrl+L remove the banner and output.
+
+Build, full ESLint and all six regression groups pass. Browser review at 1280 × 720 and 390 × 844 confirms filename completion, long-output scrolling, clearing, collapse/focus restoration and mobile sizing. At the mobile viewport the terminal is 370 CSS pixels wide, and scrollback content width equals its viewport width (369 pixels), with no horizontal overflow.

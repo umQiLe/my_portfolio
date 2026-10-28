@@ -5,7 +5,6 @@
   --text-main: #c9d1d9;
   --text-sub: #8b949e;
   --accent-blue: #58a6ff;
-  --accent-green: #7ee787;
   --border-color: #30363d;
   --font-mono: 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
 }
@@ -53,10 +52,10 @@ body {
 .user-prompt { color: var(--accent-blue); font-weight: bold; }
 .branding .title { color: var(--text-main); font-weight: bold; }
 .dot { height: 8px; width: 8px; border-radius: 50%; background-color: #bbb; }
-.dot.active { background-color: var(--accent-green); }
+.dot.active { background-color: var(--accent-blue); }
 
 .status-bar { display: flex; gap: 16px; color: var(--text-sub); }
-.highlight.green { color: var(--accent-green); }
+.highlight.blue { color: var(--accent-blue); }
 
 /* Layout Styling */
 .main-layout {
@@ -93,7 +92,7 @@ body {
 .sidebar-toggle {
   background: none;
   border: none;
-  color: var(--accent-green);
+  color: var(--accent-blue);
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: bold;
@@ -112,7 +111,7 @@ body {
 .sidebar li { margin: 0; }
 .nav-button { display: block; width: 100%; border: 0; background: none; text-align: left; padding: 10px 0; color: var(--text-main); font: inherit; cursor: pointer; }
 .nav-button:hover { color: var(--accent-blue); }
-.nav-button.active { color: var(--accent-green); font-weight: bold; border-left: 2px solid var(--accent-green); padding-left: 10px; }
+.nav-button.active { color: var(--accent-blue); font-weight: bold; border-left: 2px solid var(--accent-blue); padding-left: 10px; }
 .nav-button:focus-visible, .sidebar-toggle:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; }
 .sub-text { color: var(--text-sub); font-size: 11px; }
 

@@ -2,7 +2,7 @@
 .profile-network * { box-sizing: border-box; }
 .profile-network button, .profile-network input { font: inherit; }
 .profile-network button { cursor: pointer; }
-.profile-network button:focus-visible, .profile-network a:focus-visible, .profile-network input:focus-visible { outline: 2px solid #86efac; outline-offset: 3px; }
+.profile-network button:focus-visible, .profile-network a:focus-visible, .profile-network input:focus-visible { outline: 2px solid #79b8ff; outline-offset: 3px; }
 .network-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
 .network-eyebrow { font-size: 10px; color: #7f94ae; letter-spacing: 1.7px; margin: 0 0 12px; line-height: 1.6; }
 .network-heading h1 { margin: 0 0 10px; font-family: system-ui, sans-serif; font-size: clamp(26px, 3vw, 40px); font-weight: 600; letter-spacing: -1.5px; color: #f1f6fc; }
@@ -12,14 +12,14 @@
 .network-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
 .network-toolbar nav { display: flex; gap: 10px; align-items: center; font-size: 11px; color: #9dafc6; }
 .network-toolbar nav button { color: #b5c4d8; background: none; padding: 8px 0; border: 0; }
-.network-toolbar nav button[aria-current] { color: #86efac; }
+.network-toolbar nav button[aria-current] { color: #79b8ff; }
 .network-search { width: min(100%, 325px); }
 .network-search input { width: 100%; min-height: 40px; background: #101b2a; border: 1px solid #2c3d54; color: #edf5ff; border-radius: 7px; padding: 10px 12px; font-size: 11px; }
 .network-search input::placeholder { color: #8395ad; }
 .network-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 320px; border: 1px solid #28384f; border-radius: 12px; overflow: hidden; }
 .network-map-panel { min-width: 0; background: #0b1320; }
 .network-map-topline { height: 46px; display: flex; align-items: center; gap: 9px; padding: 0 18px; border-bottom: 1px solid #1e2c40; font-size: 10px; color: #a3b5cd; }
-.network-signal { display: inline-block; height: 6px; width: 6px; flex-shrink: 0; border-radius: 50%; background: #86efac; box-shadow: 0 0 12px #86efac44; }
+.network-signal { display: inline-block; height: 6px; width: 6px; flex-shrink: 0; border-radius: 50%; background: #79b8ff; box-shadow: 0 0 12px #79b8ff44; }
 .network-map-tag { margin-left: auto; font-size: 8px; letter-spacing: 1px; color: #637a98; }
 .network-canvas { height: 550px; position: relative; }
 .network-canvas .react-flow { --xy-background-color: #0b1320; --xy-controls-button-background-color: #152338; --xy-controls-button-background-color-hover: #213953; --xy-controls-button-color: #c9d9ec; --xy-controls-button-border-color: #30425c; --xy-minimap-background-color: #101c2d; --xy-node-boxshadow-selected: none; }
@@ -33,8 +33,8 @@
 .network-orb strong { color: #dce9f8; font-size: 12px; font-weight: 500; line-height: 1.25; }
 .network-orb small { color: #8196b2; font-size: 9px; margin-top: 5px; }
 .network-orb.profile .network-orb-circle { width: 86px; height: 86px; margin-top: 0; margin-bottom: 4px; overflow: hidden; }
-.network-orb.profile img { width: 100%; height: 100%; object-fit: cover; object-position: center 24%; background: #182e39; }
-.network-orb.profile strong { color: #a0f6bb; font-weight: 600; }
+.network-orb.profile img { width: 100%; height: 100%; object-fit: cover; object-position: center 24%; background: #182a41; }
+.network-orb.profile strong { color: #a8d1ff; font-weight: 600; }
 .network-orb.detail .network-orb-circle { width: 54px; height: 54px; margin-top: 16px; margin-bottom: 15px; }
 .network-orb.detail strong { font-size: 11px; }
 .network-orb .react-flow__handle { opacity: 0; top: 43px; left: 50%; right: auto; pointer-events: none; }
@@ -47,20 +47,20 @@
 .network-inspector { border-left: 1px solid #28384f; padding: 20px; background: #101c2a; overflow-wrap: anywhere; scroll-margin-top: 16px; }
 .network-inspector-bar { color: #6e86a4; font-size: 9px; letter-spacing: 1.5px; display: flex; justify-content: space-between; margin-bottom: 32px; }
 .network-inspector h2 { color: #f0f5fd; font-family: system-ui, sans-serif; font-size: 30px; font-weight: 550; letter-spacing: -.9px; line-height: 1.15; margin: 0 0 18px; }
-.network-inspector h2 span { color: #86efac; }
+.network-inspector h2 span { color: #79b8ff; }
 .network-inspector p { font-size: 11px; color: #98abc3; line-height: 1.85; }
 .network-inspector .network-role { color: #d5e3f4; font-size: 13px; line-height: 1.6; }
 .network-tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 24px 0; }
-.network-tags span { padding: 5px 7px; color: #96cfc2; border: 1px solid #2b4b4e; border-radius: 4px; font-size: 9px; background: #142b32; }
+.network-tags span { padding: 5px 7px; color: #aacaf0; border: 1px solid #304966; border-radius: 4px; font-size: 9px; background: #14253b; }
 .network-bio { margin-bottom: 24px; }
 .network-inspector a { color: #9ac9fd; font-size: 10px; text-decoration: none; }
 .network-next { border-top: 1px solid #2a3a4e; margin-top: 30px; padding-top: 20px; }
 .network-next h3, .network-related-title { font-size: 11px; color: #c8d7e9; font-weight: 500; }
 .network-total { display: block; margin-top: 24px; color: #6f89a8; font-size: 9px; }
-.network-expand { width: 100%; display: flex; justify-content: space-between; gap: 8px; padding: 12px; background: #1a343b; border: 1px solid #305352; color: #a1ecc4; border-radius: 6px; font-size: 10px !important; margin: 20px 0 12px; }
+.network-expand { width: 100%; display: flex; justify-content: space-between; gap: 8px; padding: 12px; background: #1a2c43; border: 1px solid #345278; color: #a7ceff; border-radius: 6px; font-size: 10px !important; margin: 20px 0 12px; }
 .network-item-list { max-height: 345px; overflow-y: auto; scrollbar-width: thin; }
 .network-item-list button { width: 100%; position: relative; text-align: left; padding: 14px 22px 14px 0; background: none; border: 0; border-bottom: 1px solid #25364a; color: #c5d5ea; }
-.network-item-list button:hover { color: #86efac; }
+.network-item-list button:hover { color: #79b8ff; }
 .network-item-list span { display: block; font-size: 12px; }
 .network-item-list small { display: block; font-size: 9px; color: #7f96b3; line-height: 1.6; margin-top: 6px; }
 .network-item-list b { position: absolute; right: 0; top: 16px; font-weight: normal; color: #718cac; }
