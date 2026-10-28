@@ -5,13 +5,15 @@
   "introduction": "Currently at ANTlabs, in the Corporate department.",
   "company": "ANTlabs",
   "department": "Corporate department",
-  "location": "Johor Bahru, Malaysia",
+  "tagline": "Chiller",
   "email": "umqile@gmail.com",
-  "portrait": "/images/qile-profile-refined.png",
+  "portrait": "/images/qile-formal-cutout.png",
+  "portraitBackdrop": "Qi Le",
+  "footer": "Human curiosity. AI possibilities. Let's build what's next",
   "focus": ["Networking", "Cloud", "AI"],
   "experience": [
     { "name": "iFAST Global Hub AI", "role": "IT Engineer", "period": "Feb – Aug 2026" },
-    { "name": "Huawei Malaysia", "role": "Network Presales", "period": "Jul – Oct 2025" }
+    { "name": "Huawei MY", "role": "Network Presales", "period": "Jul – Oct 2025" }
   ],
   "outlook": "I'm enjoying my time at ANTlabs and hope to contribute more under Bowen's guidance."
 }

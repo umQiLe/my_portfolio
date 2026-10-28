@@ -51,7 +51,7 @@ function App() {
         </div>
         <div className="status-bar">
           <span className="stat">STATUS: <span className="highlight green">ONLINE</span></span>
-          <span className="stat">LOC: JOHOR, MY</span>
+          <span className="stat">MODE: CHILLER</span>
         </div>
       </header>
 

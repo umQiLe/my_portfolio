@@ -15,12 +15,12 @@ function OverviewView({ onNavigate }) {
           <div className="overview-profile-label"><span className="overview-status-dot" /> HELLO, WORLD</div>
           <div className="overview-portrait-stage">
             <div className="overview-orbit" aria-hidden="true" />
-            <span className="overview-portrait-initials" aria-hidden="true">QL</span>
-            <img src={overview.portrait} alt={`${overview.name} in casual clothing`} className="overview-portrait" fetchPriority="high" />
+            <span className="overview-portrait-name" aria-hidden="true">{overview.portraitBackdrop}</span>
+            <img src={overview.portrait} alt={`${overview.name} in a black suit and tie`} className="overview-portrait" fetchPriority="high" />
           </div>
           <div className="overview-profile-caption">
             <p>{overview.name}</p>
-            <span>{overview.location}</span>
+            <span>{overview.tagline}</span>
           </div>
           <a className="overview-contact" href={`mailto:${overview.email}`}>Let's connect <span aria-hidden="true">↗</span></a>
         </aside>
@@ -66,7 +66,7 @@ function OverviewView({ onNavigate }) {
       </div>
 
       <footer className="overview-footer">
-        <span>Good to meet you. Explore a little further <span aria-hidden="true">→</span></span>
+        <span className="overview-footer-message"><span className="overview-ai-spark" aria-hidden="true">✦</span> {overview.footer} <span aria-hidden="true">→</span></span>
         <div>
           <button type="button" onClick={() => onNavigate('PROJECTS')}>View projects <span aria-hidden="true">↗</span></button>
           <button type="button" onClick={() => onNavigate('RESUME')}>Read resume <span aria-hidden="true">↗</span></button>

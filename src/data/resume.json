@@ -6,7 +6,7 @@
     "children": [
       { "id": "c1", "label": "UM", "desc": "Universiti Malaya (UM)\nBachelor of Computer Science: Computer System and Network\nCGPA: 3.75" },
       { "id": "c2", "label": "NUS", "desc": "National University of Singapore (NUS)\nBachelor of Computing in Computer Science\nLong-term Mobility Program" },
-      { "id": "c3", "label": "CONTACT", "desc": "Email: umqile@gmail.com\nMobile: N/A\nLocation: Johor Bahru, Malaysia" }
+      { "id": "c3", "label": "CONTACT", "desc": "Email: umqile@gmail.com\nMobile: N/A" }
     ]
   },
   "experience": {
@@ -15,7 +15,7 @@
     "summary": "iFAST // Huawei // UM",
     "children": [
       { "id": "e1", "label": "IFAST_GLOBAL", "desc": "IT Engineer | iFAST Global Hub AI (Feb-Aug 2026)\n• Deployed cross-platform unauthorized software detection using bash/SSP.\n• Managed enterprise-wide antivirus, firewall framework, and DLP policies.\n• Maintained global infrastructure uptime via Active Directory and VPN gateways." },
-      { "id": "e2", "label": "HUAWEI", "desc": "Network Presales | Huawei Malaysia (Jul-Oct 2025)\n• Supported PoC & enterprise network projects: topology design, configuration, lab stimulation.\n• Developed a network provisioning tool using FastAPI and Ollama." },
+      { "id": "e2", "label": "HUAWEI", "desc": "Network Presales | Huawei MY (Jul-Oct 2025)\n• Supported PoC & enterprise network projects: topology design, configuration, lab stimulation.\n• Developed a network provisioning tool using FastAPI and Ollama." },
       { "id": "e3", "label": "UM_LAB_TA", "desc": "Lab Teaching Assistant | Universiti Malaya (Mar-Jul 2024/2025)\n• Conducted Network Technology Fundamental labs for 30 students.\n• Guided tasks involving IPv4/IPv6, STP, VLAN, ROAS, DHCP, Port Security." }
     ]
   },

@@ -20,7 +20,7 @@ const mask = [
 ];
 
 const ResumeView = () => {
-  const PROFILE_IMAGE_URL = "https://media.licdn.com/dms/image/v2/D5603AQEPSK0J-MHYYA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1719029030375?e=1788393600&v=beta&t=5eTK1YguXuldlUFBVlEKeppKdumpej1JHa7uAL55Ao4"; // Use your actual URL
+  const PROFILE_IMAGE_URL = '/images/qile-formal-cutout.png';
   
   const [matrixText, setMatrixText] = useState('');
   const [phase, setPhase] = useState('decoding');
@@ -89,7 +89,6 @@ const ResumeView = () => {
             <div className="resume-contact">
               <span>{resumeData.core.children[2].desc.split('\n')[0]}</span>
               <span>{resumeData.core.children[2].desc.split('\n')[1]}</span>
-              <span>Johor Bahru, Malaysia</span>
             </div>
             <p className="resume-summary">
               Fresh Graduate | Computer Science student at Universiti Malaya. Specializing in routing protocols, infrastructure as code, and building resilient network architectures.
