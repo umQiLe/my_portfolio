@@ -16,7 +16,6 @@ function OverviewView({ onNavigate }) {
           <div className="overview-portrait-stage">
             <div className="overview-orbit" aria-hidden="true" />
             <span className="overview-portrait-name" aria-hidden="true">{overview.portraitBackdrop}</span>
-            <img src={overview.portraitShoulders} alt="" aria-hidden="true" className="overview-portrait-shoulders" />
             <img src={overview.portrait} alt={`${overview.name} in a black suit and tie`} className="overview-portrait" fetchPriority="high" />
           </div>
           <div className="overview-profile-caption">
