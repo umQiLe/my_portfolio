@@ -33,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   z-index: 1; 
 }
@@ -62,11 +63,13 @@ body {
   display: flex;
   flex-grow: 1;
   overflow: hidden;
+  min-height: 0;
 }
 
 /* Sidebar Styling */
 .sidebar {
   width: 220px;
+  flex-shrink: 0;
   background-color: rgba(22, 27, 34, 0.7); 
   backdrop-filter: blur(8px);
   border-right: 1px solid var(--border-color);
@@ -106,14 +109,17 @@ body {
 .sidebar-section { padding: 0 20px; }
 .section-title { color: var(--text-sub); font-size: 11px; text-transform: uppercase; margin-bottom: 15px; }
 .sidebar ul { list-style: none; padding: 0; margin: 0; }
-.sidebar li { padding: 8px 0; color: var(--text-main); cursor: pointer; }
-.sidebar li:hover { color: var(--accent-blue); }
-.sidebar li.active { color: var(--accent-green); font-weight: bold; border-left: 2px solid var(--accent-green); padding-left: 10px; }
+.sidebar li { margin: 0; }
+.nav-button { display: block; width: 100%; border: 0; background: none; text-align: left; padding: 10px 0; color: var(--text-main); font: inherit; cursor: pointer; }
+.nav-button:hover { color: var(--accent-blue); }
+.nav-button.active { color: var(--accent-green); font-weight: bold; border-left: 2px solid var(--accent-green); padding-left: 10px; }
+.nav-button:focus-visible, .sidebar-toggle:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; }
 .sub-text { color: var(--text-sub); font-size: 11px; }
 
 /* Main Content Pane */
 .content-pane {
   flex-grow: 1;
+  min-width: 0;
   padding: 24px;
   position: relative;
   overflow: auto; /* Keeps topology contained cleanly */
@@ -374,7 +380,12 @@ body {
   .main-header {
     padding: 8px 10px;
     font-size: 11px;
+    min-height: 45px;
+    box-sizing: border-box;
   }
+
+  .branding .title { display: none; }
+  .branding { gap: 6px; }
 
   .status-bar .stat:nth-child(2) {
     display: none; /* Hide location on tiny screens to save space */

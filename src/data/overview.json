@@ -1,0 +1,17 @@
+{
+  "name": "Chang Qi Le",
+  "greeting": "Hi, I'm Chang Qi Le.",
+  "role": "IT & Solutions Delivery Engineer",
+  "introduction": "Currently at ANTlabs, in the Corporate department.",
+  "company": "ANTlabs",
+  "department": "Corporate department",
+  "location": "Johor Bahru, Malaysia",
+  "email": "umqile@gmail.com",
+  "portrait": "/images/qile-casual-v2.png",
+  "focus": ["Networking", "Cloud", "AI"],
+  "experience": [
+    { "name": "iFAST Global Hub AI", "role": "IT Engineer Intern", "period": "Feb – Aug 2026" },
+    { "name": "Huawei Malaysia", "role": "Network Presales Intern", "period": "Jul – Oct 2025" }
+  ],
+  "outlook": "I'm enjoying my time at ANTlabs and hope to contribute more under Bowen's guidance."
+}

@@ -6,11 +6,25 @@ import ProjectsView from './components/ProjectsView';
 import GatewayView from './components/GatewayView';
 import CLIWidget from './components/CLIWidget';
 import MascotWidget from './components/MascotWidget';
+import OverviewView from './components/OverviewView';
+
+const navigation = [
+  { id: 'OVERVIEW', label: '[O] Overview' },
+  { id: 'DASHBOARD', label: '[T] Topology' },
+  { id: 'PROJECTS', label: '[P] Projects' },
+  { id: 'RESUME', label: '[R] Resume / CV' },
+  { id: 'GATEWAY', label: '[G] Gateway Hub' },
+];
 
 function App() {
-  const [activePane, setActivePane] = useState('DASHBOARD');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [activePane, setActivePane] = useState('OVERVIEW');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => window.innerWidth > 768);
   const [isMascotActive, setIsMascotActive] = useState(false);
+
+  const navigate = (pane) => {
+    setActivePane(pane);
+    if (window.innerWidth <= 768) setIsSidebarOpen(false);
+  };
 
   return (
     <div className="coder-ui-container">
@@ -24,6 +38,9 @@ function App() {
         <div className="branding">
           <button 
             className="sidebar-toggle" 
+            aria-label={isSidebarOpen ? 'Hide navigation' : 'Show navigation'}
+            aria-expanded={isSidebarOpen}
+            aria-controls="portfolio-navigation"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             [ {isSidebarOpen ? 'HIDE' : 'MENU'} ]
@@ -40,14 +57,17 @@ function App() {
 
       <div className="main-layout">
         {/* Collapsible Sidebar */}
-        <aside className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+        <aside id="portfolio-navigation" aria-label="Portfolio navigation" inert={!isSidebarOpen} className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
           <div className="sidebar-section">
             <h3 className="section-title">NAVIGATION</h3>
             <ul>
-              <li onClick={() => { setActivePane('DASHBOARD'); if(window.innerWidth <= 768) setIsSidebarOpen(false); }} className={activePane === 'DASHBOARD' ? 'active' : ''}>[T] Topology</li>
-              <li onClick={() => { setActivePane('PROJECTS'); if(window.innerWidth <= 768) setIsSidebarOpen(false); }} className={activePane === 'PROJECTS' ? 'active' : ''}>[P] Projects</li>
-              <li onClick={() => { setActivePane('RESUME'); if(window.innerWidth <= 768) setIsSidebarOpen(false); }} className={activePane === 'RESUME' ? 'active' : ''}>[R] Resume / CV</li>
-              <li onClick={() => { setActivePane('GATEWAY'); if(window.innerWidth <= 768) setIsSidebarOpen(false); }} className={activePane === 'GATEWAY' ? 'active' : ''}>[G] Gateway Hub</li>
+              {navigation.map((item) => (
+                <li key={item.id}>
+                  <button type="button" onClick={() => navigate(item.id)} aria-current={activePane === item.id ? 'page' : undefined} className={`nav-button ${activePane === item.id ? 'active' : ''}`}>
+                    {item.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="sidebar-section footer">
@@ -56,14 +76,12 @@ function App() {
         </aside>
 
         {/* Main Content Pane */}
-        <main className="content-pane">
+        <main className={`content-pane ${activePane === 'OVERVIEW' ? 'overview-pane' : ''}`}>
+          {activePane === 'OVERVIEW' && <OverviewView onNavigate={navigate} />}
           {activePane === 'DASHBOARD' && <MainDashboard view={activePane} />}
           {activePane === 'RESUME' && <ResumeView />}
           {activePane === 'PROJECTS' && <ProjectsView />}
           {activePane === 'GATEWAY' && <GatewayView />}
-          {activePane !== 'DASHBOARD' && activePane !== 'PROJECTS' && activePane !== 'RESUME' && activePane !== 'GATEWAY' && (
-            <div className="placeholder-pane">ACCESSING_MODULE: {activePane}...</div>
-          )}
         </main>
       </div>
 
