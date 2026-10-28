@@ -25,10 +25,11 @@
 .overview-profile-label { font-size: 10px; letter-spacing: 2px; color: #b3c4db; display: flex; align-items: center; gap: 8px; }
 .overview-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-blue); box-shadow: 0 0 10px #58a6ff55; }
 .overview-portrait-stage { position: relative; flex: 1; min-height: 300px; max-height: 420px; margin: 16px -24px 0; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; }
-.overview-portrait-stage::after { content: ''; position: absolute; inset: auto 0 0; height: 20px; z-index: 2; background: linear-gradient(transparent, #121e2d); pointer-events: none; }
+.overview-portrait-stage::after { content: ''; position: absolute; inset: auto 0 0; height: 64px; z-index: 2; background: linear-gradient(transparent, #121e2d); pointer-events: none; }
 .overview-orbit { position: absolute; top: 15%; left: 9%; width: 82%; aspect-ratio: 1; border: 1px solid #58a6ff25; border-radius: 50%; box-shadow: 0 0 0 23px #58a6ff04, 0 0 0 24px #58a6ff0c; }
 .overview-portrait-name { position: absolute; top: 14%; left: 4%; color: #58a6ff24; font: 700 64px/1 system-ui, sans-serif; letter-spacing: -4px; writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; }
-.overview-portrait { position: absolute; inset: 8px 12px; width: calc(100% - 24px); height: calc(100% - 16px); object-fit: contain; object-position: center bottom; z-index: 1; }
+.overview-portrait-shoulders { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; mask-image: linear-gradient(to bottom, transparent calc(100% - 90px), #000 calc(100% - 50px)); pointer-events: none; }
+.overview-portrait { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: auto; max-width: 100%; height: 100%; object-fit: contain; object-position: center bottom; z-index: 1; mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); }
 .overview-profile-caption { position: relative; z-index: 2; margin-top: 10px; }
 .overview-profile-caption p { font: 600 21px/1.3 system-ui, sans-serif; margin: 0 0 6px; color: #f0f6fc; }
 .overview-profile-caption > span { font-size: 12px; color: #a9c1df; }
