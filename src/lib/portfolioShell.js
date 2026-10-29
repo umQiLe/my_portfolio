@@ -48,7 +48,7 @@ export function runCommand(input, { history = [], chatMode = false, now = new Da
   const rest = text.slice(rawCommand.length).trim();
   const topicOutput = id => format(details.filter(item => item.topicId === id));
   switch (command) {
-    case 'help': return { output: `QI LE / LOCAL PORTFOLIO CONSOLE\n\n${commands.map(([name, desc]) => `${name.padEnd(12)}${desc}`).join('\n')}\n\nExamples\n  open topology\n  find cloud\n  cat experience.log\n  ask current role\n  qile come / qile bye\n\n↑ / ↓ history · Tab complete · Escape collapse · Ctrl + \` toggle\nThis console reads saved profile data; it does not run system commands.` };
+    case 'help': return { output: `QI LE / LOCAL PORTFOLIO CONSOLE\n\n${commands.filter(([name]) => name !== 'qile').map(([name, desc]) => `${name.padEnd(12)}${desc}`).join('\n')}\n\nExamples\n  open topology\n  find cloud\n  cat experience.log\n  ask current role\n\n↑ / ↓ history · Tab complete · Escape collapse · Ctrl + \` toggle\nThis console reads saved profile data; it does not run system commands.` };
     case 'about': return { output: about() };
     case 'exp': case 'experience': return { output: topicOutput('experience') };
     case 'skills': case 'projects': return { output: topicOutput(command) };
