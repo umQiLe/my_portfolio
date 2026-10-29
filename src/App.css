@@ -6,15 +6,17 @@
   --text-sub: #8b949e;
   --accent-blue: #58a6ff;
   --border-color: #30363d;
-  --font-mono: 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
+  --font-ui: 'Inter Variable', 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', Consolas, monospace;
 }
 
 body {
   margin: 0;
   background-color: var(--bg-color);
   color: var(--text-main);
-  font-family: var(--font-mono);
-  font-size: 14px;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .video-background {
@@ -45,7 +47,7 @@ body {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-color);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .branding { display: flex; align-items: center; gap: 8px; }
@@ -106,14 +108,14 @@ body {
 }
 
 .sidebar-section { padding: 0 20px; }
-.section-title { color: var(--text-sub); font-size: 11px; text-transform: uppercase; margin-bottom: 15px; }
+.section-title { color: var(--text-sub); font-size: 12px; text-transform: uppercase; margin-bottom: 15px; }
 .sidebar ul { list-style: none; padding: 0; margin: 0; }
 .sidebar li { margin: 0; }
 .nav-button { display: block; width: 100%; border: 0; background: none; text-align: left; padding: 10px 0; color: var(--text-main); font: inherit; cursor: pointer; }
 .nav-button:hover { color: var(--accent-blue); }
 .nav-button.active { color: var(--accent-blue); font-weight: bold; border-left: 2px solid var(--accent-blue); padding-left: 10px; }
 .nav-button:focus-visible, .sidebar-toggle:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; }
-.sub-text { color: var(--text-sub); font-size: 11px; }
+.sub-text { color: var(--text-sub); font-size: 12px; }
 
 /* Main Content Pane */
 .content-pane {
@@ -150,7 +152,7 @@ body {
   /* Adjust header text sizing for small screens */
   .main-header {
     padding: 8px 10px;
-    font-size: 11px;
+    font-size: 12px;
     min-height: 45px;
     box-sizing: border-box;
   }

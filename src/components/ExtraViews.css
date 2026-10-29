@@ -28,7 +28,7 @@
 /* --- PROJECTS GRID --- */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 25px;
 }
 
@@ -71,7 +71,7 @@
 .media-title {
   margin: 0 0 10px 0;
   color: var(--text-main);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .tech-badges {
@@ -85,13 +85,13 @@
   background: #0d1117;
   border: 1px solid var(--accent-blue);
   color: var(--accent-blue);
-  font-size: 10px;
+  font-size: 12px;
   padding: 2px 6px;
   border-radius: 4px;
 }
 
 .media-desc {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-sub);
   line-height: 1.5;
   margin-bottom: 20px;
@@ -107,7 +107,7 @@
 .action-link {
   color: var(--accent-blue);
   text-decoration: none;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
   transition: color 0.2s;
 }
@@ -138,7 +138,7 @@
   background: var(--header-bg);
   padding: 12px 15px;
   border-bottom: 1px solid var(--border-color);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
   color: var(--accent-blue);
   letter-spacing: 1px;
@@ -191,12 +191,12 @@
 
 .btn-text h4 {
   margin: 0 0 4px 0;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .btn-text p {
   margin: 0;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-sub);
 }
 
